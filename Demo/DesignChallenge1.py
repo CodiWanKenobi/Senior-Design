@@ -12,7 +12,7 @@ numECC = math.log((w*h), 2) + 1
 x = np.array(array)
 x = x.flatten()
 y = []
-print(x) # data array
+print("Original data: ", x) # data array
 i = 0
 j = 0
 
@@ -40,4 +40,4 @@ while j < numECC: # we want to set numECC bits
     y[(2 ** j) - 1] = cnt % 2  # parity
     j += 1
     cnt = 0
-print(y) # newly encoded array with data bits and redundancy bits
+print("Data with ECC: ", y) # newly encoded array with data bits and redundancy bits
