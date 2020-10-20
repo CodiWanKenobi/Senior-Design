@@ -8,7 +8,7 @@ with open(file) as f:
     array = []
     for line in f: # read rest of lines
         array.append([int(x) for x in line.split()])
-numECC = math.log((w*h), 2) + 1
+numECC = math.ceil(math.log((w*h), 2)) + 1
 x = np.array(array)
 x = x.flatten()
 y = []
@@ -28,16 +28,28 @@ while i < (len(x)) + numECC:
             i += 1
 
 i = 0
-j = 0
 cnt = 0
-while j < numECC: # we want to set numECC bits
+parityIndices = []
+for j in range(numECC):  # we want to set numECC bits
     i = 0
     while i < len(y):
         if (i + 1 & i) != 0:
             if ((i + 1) & (2 ** j) != 0) & y[i]:
                 cnt += 1
         i += 1
-    y[(2 ** j) - 1] = cnt % 2  # parity
+    parityIndex = (2 ** j) - 1
+    parityIndices.append(parityIndex)
+    y[parityIndex] = cnt % 2  # parity
     j += 1
     cnt = 0
-print("Data with ECC: ", y) # newly encoded array with data bits and redundancy bits
+
+print("Data with ECC (parity bits highlighted): [", end='')
+for j in range(len(y)):
+    if parityIndices.__contains__(j):
+        print("\033[1m%d\033[0m, " % y[j], end='')  # print parity bits in bold
+    else:
+        delimiter = ", "
+        if j == len(y) - 1:
+            delimiter = ''
+        print("%d" % y[j], end=delimiter)
+print("]")
