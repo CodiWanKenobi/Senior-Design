@@ -2,54 +2,55 @@ import math
 import numpy as np
 import copy
 
+
+class Colors:
+    BOLD = '\033[1m'
+    GREEN = '\033[92m'
+    RED = '\033[91m'
+    END = '\033[0m'
+
+
 file = input("Enter file name: ")
 with open(file) as f:
     w, h = [int(x) for x in next(f).split()] # read first line
     array = []
-    for line in f: # read rest of lines
+    for line in f:  # read rest of lines
         array.append([int(x) for x in line.split()])
 numECC = math.ceil(math.log((w*h), 2)) + 1
 x = np.array(array)
 x = x.flatten()
-y = []
-print("Original data: ", x) # data array
-i = 0
-j = 0
+print("Original data: ", x)  # data array
 
-while i < (len(x)) + numECC:
+y = []
+j = 0
+for i in range((len(x)) + numECC):
     if (i + 1 & i) == 0:  # check if power of 2
         y.append(0)
-        i += 1
     else:
         if j < len(x):
             a = copy.copy(x[j])
             y.append(a)
             j += 1
-            i += 1
 
-i = 0
 cnt = 0
 parityIndices = []
-for j in range(numECC):  # we want to set numECC bits
-    i = 0
-    while i < len(y):
-        if (i + 1 & i) != 0:
-            if ((i + 1) & (2 ** j) != 0) & y[i]:
+for i in range(numECC):  # we want to set numECC bits
+    for j in range(len(y)):
+        if (j + 1 & j) != 0:
+            if ((j + 1) & (2 ** i) != 0) & y[j]:
                 cnt += 1
-        i += 1
-    parityIndex = (2 ** j) - 1
+    parityIndex = (2 ** i) - 1
     parityIndices.append(parityIndex)
     y[parityIndex] = cnt % 2  # parity
-    j += 1
     cnt = 0
 
 print("Data with ECC (parity bits highlighted): [", end='')
-for j in range(len(y)):
-    if parityIndices.__contains__(j):
-        print("\033[1m%d\033[0m, " % y[j], end='')  # print parity bits in bold
+for i in range(len(y)):
+    if parityIndices.__contains__(i):
+        print((Colors.BOLD + '%d' + Colors.END + ', ') % y[i], end='')  # print parity bits in bold
     else:
         delimiter = ", "
-        if j == len(y) - 1:
+        if i == len(y) - 1:
             delimiter = ''
-        print("%d" % y[j], end=delimiter)
+        print("%d" % y[i], end=delimiter)
 print("]")
