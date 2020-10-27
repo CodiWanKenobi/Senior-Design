@@ -80,6 +80,7 @@ for i in range(numECC):  # we want to set numECC bits
             y[parityIndex] ^= y[j]
     parityZeroVal ^= y[parityIndex]
 y[0] = parityZeroVal
+origECCArr = copy.copy(y)
 
 print_ecc_array(y, parityIndices, 'Data with ECC (%d parity bits in bold): ' % (numECC + 1), highlight_diff=False)
 
@@ -126,6 +127,20 @@ else:
     print("No errors detected")
 
 if not multipleErrors:
+    print('Original ECC data:  [', end='')
+    for i in range(len(origECCArr)):
+        delimiter = ', '
+        if i == len(origECCArr) - 1:
+            delimiter = ''
+        if origECCArr[i] != y[i]:
+            diff_val = origECCArr[i]
+            print((Colors.RED + '%d' + Colors.END) % diff_val, end=delimiter)
+        if (parityIndices.__contains__(i)):
+            print((Colors.BOLD + '%d' + Colors.END) % origECCArr[i], end=delimiter)  # print parity bits in bold
+        else:
+            print("%d" % origECCArr[i], end=delimiter)
+    print(']')
+
     print_ecc_array(y, parityIndices, 'Received ECC data:  ', diff_index=errorIndex)
 
     print_ecc_array(y, parityIndices, 'Corrected ECC data: ', diff_index=errorIndex, error=False)
