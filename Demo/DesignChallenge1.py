@@ -1,5 +1,5 @@
 import math
-import numpy as np
+import random
 import copy
 
 
@@ -44,16 +44,15 @@ def print_ecc_array(arr, parity_bits, description, diff_index=0, data_only=False
     print(']')
 
 
-file = input("Enter file name: ")
-with open(file) as f:
-    w, h = [int(x) for x in next(f).split()]  # read first line
-    array = []
-    for line in f:  # read rest of lines
-        array.append([int(x) for x in line.split()])
-numECC = math.floor(math.log((w*h), 2)) + 1
-x = np.array(array)
-x = x.flatten()
-print_array(x, "Original data:\t\t\t\t\t     ")  # data array
+numBits = input("Enter the number of data bits (64, 128, or 256): ")
+numBits = int(numBits)
+numECC = math.floor(math.log(numBits, 2)) + 1
+
+x = []
+for i in range(numBits):
+    x.append(random.randint(0, 1))
+
+print_array(x, "Original data:\t\t\t\t\t       ")  # data array
 
 y = []
 x_index = 0
@@ -82,7 +81,7 @@ for i in range(numECC):  # we want to set numECC bits
     parityZeroVal ^= y[parityIndex]
 y[0] = parityZeroVal
 
-print_ecc_array(y, parityIndices, 'Data with ECC (parity bits in bold): ', highlight_diff=False)
+print_ecc_array(y, parityIndices, 'Data with ECC (%d parity bits in bold): ' % (numECC + 1), highlight_diff=False)
 
 errorPos = input("Enter index of bit(s) to flip, separated by a space: ")
 errorIndices = errorPos.split(' ')
