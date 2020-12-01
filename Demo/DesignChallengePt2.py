@@ -71,6 +71,7 @@ old_x = copy.copy(x)  # Keep old data to show changes
 generalParityBits = [0] * numECC
 blockParityBits = [0] * 4
 
+ecIndices = []
 errorPos = input("\nEnter index of bit(s) to flip, separated by a space: ")
 if len(errorPos) > 0:
     errorIndices = errorPos.split(' ')
@@ -79,8 +80,22 @@ if len(errorPos) > 0:
         blockIndex = errorIndex // 32
         bitIndex = errorIndex % 32
         blocks[blockIndex][bitIndex] ^= 1
+#choice to flip EC bits
+ecErrs = input("\nEnter index of parity bit(s) to flip (0-11), separated by a space: ")
+if len(ecErrs) > 0:
+    ecIndices = [int(x) for x in ecErrs.split(' ')]
+
+    
+
 
 gen_parity_bits()
+if len(ecIndices) > 0:
+    for bit in ecIndices:
+        if bit < 8:
+            generalParityBits[bit] ^= 1
+        else:
+            blockParityBits[bit-8] ^= 1
+
 oldParityBits = (originalGenParity, originalBlockParity)
 newParityBits = (generalParityBits, blockParityBits)
 general_syndrome, block_syndrome = gen_syndrome(oldParityBits, newParityBits)
@@ -110,7 +125,34 @@ for i in range(len(blocks)):
                 print(blocks[i][j], end=', ')
     print()
 
-print("New parity:", newParityBits)
+print("New parity: ", end='')
+#print EC bits
+if len(ecIndices) == 0:
+    print(newParityBits)
+else:
+    print("([", end='')
+    for i in range(12):
+        if i in [7, 11]: 
+            endl = ']'
+        else: 
+            endl = ','
+        if i in ecIndices:
+            print(Colors.RED, end='')
+            if i < 8:
+                print(newParityBits[0][i], end='')
+            else:
+                print(newParityBits[1][8-i], end = '')
+            print(Colors.END, end=endl)
+        else:
+            if i < 8:
+                print(newParityBits[0][i], end=endl)
+            else:
+                print(newParityBits[1][8-i], end = endl)
+        if i == 7:
+            print(',', end=' [')
+        elif i == 11:
+            print(')')
+    
 print()
 print("General Syndrome:", general_syndrome)
 print("Group Syndrome:", block_syndrome)
@@ -118,13 +160,14 @@ print()
 
 
 # Find a group whose binary literal corresponds to the bits set in the syndrome.
+# -2 means no error, -1 means could not find group
 def find_error_group(syndrome):
     # Treat syndrome as binary representation of integer for easier comparison
     syndrome_literal = 0
     for i in range(len(syndrome)):
         syndrome_literal += syndrome[i] << i
     if syndrome_literal == 0:  # No error
-        return 0
+        return -2 
     for group_index in range(len(groups)):
         if syndrome_literal == groups[group_index]:
             return group_index
@@ -132,6 +175,7 @@ def find_error_group(syndrome):
 
 
 # Find the first block where an error occurred (only need SEC, so don't worry about the rest).
+# -1 means no error was found in the blocks based off the EC bits
 def find_error_block(syndrome):
     for i in range(len(syndrome)):
         if syndrome[i]:
@@ -142,8 +186,10 @@ def find_error_block(syndrome):
 groupVal = find_error_group(general_syndrome)
 blockVal = find_error_block(block_syndrome)
 
-if groupVal == 0 and blockVal == -1:
-    print("No error detected.")
+if groupVal == -2:
+    print("No error detected in data block.")
+    if blockVal != -1:
+        print("Error Detected in EC Bits")
 elif (groupVal != 0 and blockVal == -1) or (groupVal == -1 and blockVal != -1):
     print("Double-error detected - skipping correction.", end='\n\n')
     print('Final data:')
