@@ -160,13 +160,19 @@ print()
 
 
 # Find a group whose binary literal corresponds to the bits set in the syndrome.
+# -3 means 1 bit flipped in gen syndrome, -2 means all 0s, -1 means could not match group
 def find_error_group(syndrome):
     # Treat syndrome as binary representation of integer for easier comparison
     syndrome_literal = 0
+    count = 0
     for i in range(len(syndrome)):
         syndrome_literal += syndrome[i] << i
+        if syndrome[i] == 1:
+            count += 1
     if syndrome_literal == 0:  # No error
-        return -1
+        return -2
+    if count < 2:
+        return -3
     for group_index in range(len(groups)):
         if syndrome_literal == groups[group_index]:
             return group_index
@@ -190,9 +196,9 @@ def find_error_block(syndrome):
 groupVal = find_error_group(general_syndrome)
 blockVal = find_error_block(block_syndrome)
 
-if groupVal == -1:
+if groupVal in [-2, -3]:
     print("No error detected in data block.")
-    if blockVal != -1:
+    if blockVal != -1 or groupVal == -3:
         print("Error Detected in ECC Bits")
 elif (groupVal != 0 and blockVal == -1) or (groupVal == -1 and blockVal != -1):
     print("Double-error detected - skipping correction.", end='\n\n')
