@@ -26,7 +26,7 @@ class GF:
         self.gf_log = [0] * (self.maxSize+1) # log table
         # For each possible value in the galois field 2^8, we will pre-compute the logarithm and anti-logarithm (exponential) of this value
         x = 1
-        for i in range(0, 255):
+        for i in range(0, self.maxSize):
             self.gf_exp[i] = x # compute anti-log for this value and store it in a table
             self.gf_log[x] = i # compute log at the same time
             x = self.__gf_mult_noLUT(x, 2, self.prim, self.maxSize+1)
@@ -63,7 +63,10 @@ class GF:
             raise ZeroDivisionError()
         if a==0:
             return 0
-        return self.gf_exp[(self.gf_log[a] - self.gf_log[b]) % 255] # Since exp(log(a)-log(b)) = a/b, this is O(1) division
+        return self.gf_exp[(self.gf_log[a] - self.gf_log[b]) % self.maxSize] # Since exp(log(a)-log(b)) = a/b, this is O(1) division
+
+    def pow(self, a, b):
+        return self.gf_exp[(self.gf_log[a] * b) % self.maxSize]
 
     
     # Below are the polynomial operators of Galois Fields
