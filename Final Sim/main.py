@@ -9,7 +9,8 @@ SymbolSize = 4 #Size (in bits) of each symbol
 rs = RS(MessageSize, RedunantSize, SymbolSize)
 
 msg = random.choices(range(0, 16), k=16)
-print(msg)
+#print(msg)
+print('Msg_in:  [{}]'.format(', '.join(hex(x) for x in msg)))
 encoded = rs.encode(msg)
-print(encoded)
+print('Encoded: [{}]'.format(', '.join(hex(x) for x in encoded)))
 
