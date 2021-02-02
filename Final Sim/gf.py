@@ -63,10 +63,13 @@ class GF:
             raise ZeroDivisionError()
         if a==0:
             return 0
-        return self.gf_exp[(self.gf_log[a] - self.gf_log[b]) % self.maxSize] # Since exp(log(a)-log(b)) = a/b, this is O(1) division
+        return self.gf_exp[(self.gf_log[a] + self.maxSize - self.gf_log[b]) % self.maxSize] # Since exp(log(a)-log(b)) = a/b, this is O(1) division
 
     def pow(self, a, b):
         return self.gf_exp[(self.gf_log[a] * b) % self.maxSize]
+
+    def inverse(self, a):
+        return self.gf_exp[self.maxSize - self.gf_log[a]]
 
     
     # Below are the polynomial operators of Galois Fields
