@@ -23,6 +23,7 @@ class RS:
             raise ValueError("Message is not equal to %d symbols" % self.K)
         msg_out = [0] * self.N
         msg_out[:len(msg_in)] = msg_in
+        print("Generator Polynomial: ", self.genpoly)
 
         #Synthetic Division Main Loop
         for i in range(len(msg_in)):
@@ -60,54 +61,75 @@ class RS:
 
         # STEP 3: Find Error Locator Polynomial using the Berlekamp–Massey algorithm
         # I still do not fully understand this algorithm but it works
-        err_loc = [1] #Error Locator Polynomial
+        Lambda = [1] #Error Locator Polynomial
         old_loc = [1] #BM is an iterative algorithm, so we need to keep the value of the last used locator polynomial
         for i in range(0, rsym):
             
             #Compute delta
             delta = syndrome[i]
-            for j in range(1, len(err_loc)):
-                delta ^= self.field.multiply(err_loc[-(j+1)], syndrome[i-j])
-            #print ("delta", i, delta, list(self.field.poly_multiply(err_loc[::-1], syndrome))) # debug line
+            for j in range(1, len(Lambda)):
+                delta ^= self.field.multiply(Lambda[-(j+1)], syndrome[i-j])
+            #print ("delta", i, delta, list(self.field.poly_multiply(Lambda[::-1], syndrome))) # debug line
 
             #Shift polynomials to compute next degree
             old_loc = old_loc + [0]
 
             # Iteratively estimate the errata locator and evaluator polynomials
             if delta != 0: # Update only if there's a discrepancy
-                if len(old_loc) > len(err_loc): # Rule B (rule A is implicitly defined because rule A just says that we skip any modification for this iteration)
+                if len(old_loc) > len(Lambda): # Rule B (rule A is implicitly defined because rule A just says that we skip any modification for this iteration)
                     # Computing errata locator polynomial Sigma
                     new_loc = self.field.poly_scale(old_loc, delta)
-                    old_loc = self.field.poly_scale(err_loc, self.field.inverse(delta)) # effectively we are doing err_loc * 1/delta = err_loc / delta
-                    err_loc = new_loc
+                    old_loc = self.field.poly_scale(Lambda, self.field.inverse(delta)) # effectively we are doing Lambda * 1/delta = Lambda / delta
+                    Lambda = new_loc
                 
                 # Update with the discrepancy
-                err_loc = self.field.poly_add(err_loc, self.field.poly_scale(old_loc, delta))
+                Lambda = self.field.poly_add(Lambda, self.field.poly_scale(old_loc, delta))
 
         #drop any leading 0s if they exist
-        while len(err_loc) and err_loc[0] == 0: del err_loc[0] # total number of errors in message is now len(err_loc) - 1
-        #reverse the polynomial
-        err_loc = err_loc[::-1]
-        print("Err_loc: ", err_loc) #debug line
+        while len(Lambda) and Lambda[0] == 0: del Lambda[0] # total number of errors in message is now len(Lambda) - 1
+        print("Lambda: ", Lambda) #debug line
         #determine if too many errors exist to correct
-        error_count = len(err_loc) - 1
+        error_count = len(Lambda) - 1
         #if error_count * 2 > rsym:
         #    raise ReedSolomonError("Too many errors to correct")    # too many errors to correct      
 
 
-        # STEP 4: Use locator polynomial to locate the errors
+        # STEP 4: Determine the location of the errors using the locator polynomial
         # Currently using a brute force approach, there is a faster algorithm called Chien search that exists if someone else wants to look into that
-        # OK READ HERE - for purposes of our project, our locator polynomial
-        err_pos = [] # this list will contain the positions of the errors in the msg
-        for i in range(len(msg)):
-            #print("2^i, i = ", i, self.field.poly_evaluate(err_loc, self.field.pow(2, i)))
-            if self.field.poly_evaluate(err_loc, self.field.pow(2, i)) == 0:
-                err_pos.append(len(msg)-1-i)
+        X = [] # this list will contain the positions of the errors in the msg
+        for i in range(len(msg)-1, -1, -1): #count down from 14 to 0
+            #print("2^-i, i = ", i, self.field.poly_evaluate(Lambda, self.field.pow(2, i)))
+            if self.field.poly_evaluate(Lambda, self.field.pow(2, -i)) == 0:
+                X.append(len(msg)-1-i)
         
-        print("Err_Pos: ", err_pos) # debug line
+        print("X: ", X) # debug line
 
+        # STEP 5: Calculate the magnitude of the errors (using Forney)
+        # Note - this step currently only works and is optimized for symbols size 4 or 2, symbol size 8 or greater WILL NOT WORK
+        # Also a very depressing algo
 
+        # First calculate omega
+        omega = self.field.poly_multiply(syndrome[::-1], Lambda) # syndrome polynomial * error location polynomial
+        omega = omega[len(omega)-(error_count):] # truncate omega so it holds what we want
+        print("Omega: ", omega)
 
+        Y = [0] * len(msg) # list to hold the error magnitude at each position
 
-        return syndrome
+        # Calculate Formal Derivative (this step is holding it back from scaling to symbol size >4)
+        Lambda_prime = Lambda[1]    #Lambda prime for a linear or quadratic polynomial is simply the constant of the 1st degree term
+                                    #Since symbol size 4 will have at most 3 terms in the error locator for a polynomial for a correctable error, this will work
+
+        # Now find the error magnititudes -> Yi = Xi * Omega(Xi^-1)  / Lambda_prime
+        for i in range(0, len(X)):
+            degree = len(msg)-X[i]-1
+            Xi_inverse = self.field.inverse(self.field.pow(2, degree))
+            numerator = self.field.multiply(self.field.pow(2, degree), self.field.poly_evaluate(omega, Xi_inverse))
+            Y[X[i]] = self.field.divide(numerator, Lambda_prime)
+        print("Y: ", Y) #debug line
+
+        # STEP 6: Fix those damn errors!
+        # Final step thank god
+        msg_out = self.field.poly_add(msg, Y)
+
+        return msg_out[:self.K]
 

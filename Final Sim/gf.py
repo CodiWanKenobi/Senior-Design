@@ -1,7 +1,7 @@
 class GF:
     # PrimChoices - Primitive polynomials for degrees 1-8
     # Higher degrees have multiple primative polynomials - to see them all go here -> http://www.ee.unb.ca/cgi-bin/tervo/calc2.pl
-    PrimChoices = [0, 0b11, 0b111, 0b1101, 0b11001, 0b111101, 0b100011, 0b11001011, 0b100011101]
+    PrimChoices = [0, 0b11, 0b111, 0b1101, 0b10011, 0b111101, 0b100011, 0b11001011, 0b100011101]
 
     # Private Methods (neither will need to be recreated in the schematic)
     def __gf_mult_noLUT(self, x, y, prim=0, field_charac_full=256, carryless=True):
