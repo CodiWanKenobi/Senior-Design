@@ -1,5 +1,8 @@
 from gf import GF
 
+class ReedSolomonError(Exception):
+    pass
+
 class RS:
     # Init()
     # Input messageSize is total number off bits of real message
@@ -14,6 +17,34 @@ class RS:
         self.genpoly = [1]
         for i in range(0, self.N-self.K):
             self.genpoly = self.field.poly_multiply(self.genpoly, [1, self.field.pow(2, i)])
+
+    # BMalgo()
+    # takes syndrome polynomial as input and outputs locator polynomial, Lambda
+    # NOTE: Unlike the rest of the code, Syndrome must be in REVERSE order (with lowest degree as first element) 
+    def __BMalgo(self, syndrome):
+        Lambda = [1] # Lambda(x) = 1
+        Lambda_star = [] # will hold Lambda*(x)
+        Cx = [1, 0] # C(x) = x
+        L = 0 #current number of assumed errors, init to 0
+        N = len(syndrome) #total number of syndromes
+
+        for K in range(0, N):
+            #calculate delta: delta = S_n + Lambda_1 * S_n-1 + ... + Lambda_L * S_n-L
+            delta = syndrome[K]
+            for i in range(1, len(Lambda)):
+                delta ^= self.field.multiply(Lambda[-(i+1)], syndrome[K-i])
+
+            if delta !=0: #update only if there is a discrepancy
+                Lambda_star = self.field.poly_add(Lambda, self.field.poly_scale(Cx, delta)) # Lambda*(x) = Lambda(x) + delta * C(x)
+                if 2*L < (K+1):
+                #if len(old_lambda) > len(Lambda):
+                    Cx = self.field.poly_scale(Lambda, self.field.inverse(delta)) # C(x) = Lambda / e
+                    L = (K+1)-L # update L
+
+                Cx = Cx + [0] # C(x) = C(x) * x
+                Lambda = Lambda_star
+
+        return Lambda
 
     # Encode()
     # Takes a python list containing the message already split into its symbols
@@ -53,6 +84,7 @@ class RS:
         syndrome = [0] * rsym
         for i in range (0, rsym):
             syndrome[i] = self.field.poly_evaluate(msg, self.field.pow(2, i))
+        syndrome = syndrome[::-1] #reverse syndrome so it's in correct order (highest degree first)
         print("Syndrome: ", syndrome) # debug line
 
         # STEP 2: Check if syndrome is all 0 (meaning message is undamaged)
@@ -60,39 +92,14 @@ class RS:
             return msg[:self.K] #return the real message
 
         # STEP 3: Find Error Locator Polynomial using the Berlekamp–Massey algorithm
-        # I still do not fully understand this algorithm but it works
-        Lambda = [1] #Error Locator Polynomial
-        old_loc = [1] #BM is an iterative algorithm, so we need to keep the value of the last used locator polynomial
-        for i in range(0, rsym):
-            
-            #Compute delta
-            delta = syndrome[i]
-            for j in range(1, len(Lambda)):
-                delta ^= self.field.multiply(Lambda[-(j+1)], syndrome[i-j])
-            #print ("delta", i, delta, list(self.field.poly_multiply(Lambda[::-1], syndrome))) # debug line
-
-            #Shift polynomials to compute next degree
-            old_loc = old_loc + [0]
-
-            # Iteratively estimate the errata locator and evaluator polynomials
-            if delta != 0: # Update only if there's a discrepancy
-                if len(old_loc) > len(Lambda): # Rule B (rule A is implicitly defined because rule A just says that we skip any modification for this iteration)
-                    # Computing errata locator polynomial Sigma
-                    new_loc = self.field.poly_scale(old_loc, delta)
-                    old_loc = self.field.poly_scale(Lambda, self.field.inverse(delta)) # effectively we are doing Lambda * 1/delta = Lambda / delta
-                    Lambda = new_loc
-                
-                # Update with the discrepancy
-                Lambda = self.field.poly_add(Lambda, self.field.poly_scale(old_loc, delta))
-
-        #drop any leading 0s if they exist
-        while len(Lambda) and Lambda[0] == 0: del Lambda[0] # total number of errors in message is now len(Lambda) - 1
-        print("Lambda: ", Lambda) #debug line
-        #determine if too many errors exist to correct
+        # The BM algo needs the syndrome list to be in reverse order
+        Lambda = self.__BMalgo(syndrome[::-1])
+        print("Lambda:", Lambda)
+        
         error_count = len(Lambda) - 1
-        #if error_count * 2 > rsym:
-        #    raise ReedSolomonError("Too many errors to correct")    # too many errors to correct      
-
+        #This is currently not working, sometimes 3 errors will not be detected
+        if error_count * 2 > rsym:
+            raise ReedSolomonError("Too many errors to correct")    # too many errors to correct      
 
         # STEP 4: Determine the location of the errors using the locator polynomial
         # Currently using a brute force approach, there is a faster algorithm called Chien search that exists if someone else wants to look into that
@@ -109,7 +116,7 @@ class RS:
         # Also a very depressing algo
 
         # First calculate omega
-        omega = self.field.poly_multiply(syndrome[::-1], Lambda) # syndrome polynomial * error location polynomial
+        omega = self.field.poly_multiply(syndrome, Lambda) # syndrome polynomial * error location polynomial
         omega = omega[len(omega)-(error_count):] # truncate omega so it holds what we want
         print("Omega: ", omega)
 
@@ -120,11 +127,11 @@ class RS:
                                     #Since symbol size 4 will have at most 3 terms in the error locator for a polynomial for a correctable error, this will work
 
         # Now find the error magnititudes -> Yi = Xi * Omega(Xi^-1)  / Lambda_prime
-        for i in range(0, len(X)):
-            degree = len(msg)-X[i]-1
+        for Xi in X:
+            degree = len(msg)-Xi-1
             Xi_inverse = self.field.inverse(self.field.pow(2, degree))
             numerator = self.field.multiply(self.field.pow(2, degree), self.field.poly_evaluate(omega, Xi_inverse))
-            Y[X[i]] = self.field.divide(numerator, Lambda_prime)
+            Y[Xi] = self.field.divide(numerator, Lambda_prime)
         print("Y: ", Y) #debug line
 
         # STEP 6: Fix those damn errors!
