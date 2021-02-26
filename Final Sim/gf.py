@@ -48,6 +48,10 @@ class GF:
         for i in range(len(self.gf_exp)):
             print("5'b{:05b}: out =".format(i), "4'b{:04b};".format(self.gf_exp[i]))
 
+    def printLogT(self):
+        for i in range(len(self.gf_log)):
+            print("4'b{:04b}: out =".format(i), "4'b{:04b};".format(self.gf_log[i]))
+
     # Below are the scalar operators of Galois Fields, all run in O(1)
 
     def add(self, a, b):
