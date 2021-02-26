@@ -44,6 +44,9 @@ class GF:
         self.maxSize = 2 ** n - 1 # 2^n - 1 is the max size of each element
         self.__initLogTables(self.prim)       
 
+    def printExpT(self):
+        for i in range(len(self.gf_exp)):
+            print("5'b{:05b}: out =".format(i), "4'b{:04b};".format(self.gf_exp[i]))
 
     # Below are the scalar operators of Galois Fields, all run in O(1)
 

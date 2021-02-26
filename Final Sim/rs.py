@@ -18,6 +18,8 @@ class RS:
         for i in range(0, self.N-self.K):
             self.genpoly = self.field.poly_multiply(self.genpoly, [1, self.field.pow(2, i)])
 
+        self.field.printExpT()
+
     # BMalgo()
     # takes syndrome polynomial as input and outputs locator polynomial, Lambda
     # NOTE: Unlike the rest of the code, Syndrome must be in REVERSE order (with lowest degree as first element) 
