@@ -21,8 +21,8 @@
 
 
 module GF_log_table(
-    input [3:0] in,
-    output reg [3:0] out
+    input [0:3] in,
+    output reg [0:3] out
     );
     always @(*) begin
         case(in)
