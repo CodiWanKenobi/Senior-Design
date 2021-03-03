@@ -3,10 +3,10 @@
 <!--                                                         -->
 <!-- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="54" Path="E:/College/Repos/Senior-Design/Reed-Solomon ECC/Reed-Solomon ECC.xpr">
+<Project Version="7" Minor="54" Path="E:/College/Repos/Senior-Design/Reed-Solomon-ECC/Reed-Solomon-ECC.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="8f6ac51fe8234999b048c0c5b503e798"/>
+    <Option Name="Id" Val="118ad12101f74ed48060e773050ffc42"/>
     <Option Name="Part" Val="xc7k70tfbv676-1"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>
@@ -35,7 +35,6 @@
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
-    <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
     <Option Name="IPDefaultOutputPath" Val="$PGENDIR/sources_1"/>
     <Option Name="IPCachePermission" Val="read"/>
     <Option Name="IPCachePermission" Val="write"/>
@@ -75,6 +74,8 @@
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sources_1/new/GF_exp_table.v">
         <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../Reed-Solomon ECC/Reed-Solomon ECC.srcs/sources_1/new/GF_exp_table.v"/>
+          <Attr Name="ImportTime" Val="1614734803"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -82,6 +83,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/new/GF_log_table.v">
         <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../Reed-Solomon ECC/Reed-Solomon ECC.srcs/sources_1/new/GF_log_table.v"/>
+          <Attr Name="ImportTime" Val="1614734803"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -89,6 +92,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/new/GF_Multiply.v">
         <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../Reed-Solomon ECC/Reed-Solomon ECC.srcs/sources_1/new/GF_Multiply.v"/>
+          <Attr Name="ImportTime" Val="1614735088"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
