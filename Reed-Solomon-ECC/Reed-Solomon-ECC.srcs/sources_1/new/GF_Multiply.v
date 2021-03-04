@@ -43,7 +43,7 @@ module GF_Multiply(
     
     always @ (*)
     begin
-        if(|A == 0 || |B == 0) 
+        if(~|A || ~|B) 
             out = 4'h0;
         else
             out = product;

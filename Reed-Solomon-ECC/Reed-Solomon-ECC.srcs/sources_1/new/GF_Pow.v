@@ -34,14 +34,14 @@ module GF_Pow(
     
     always @ (*)
     begin
-        multiplied = logA * B;
+        multiplied = logA * B;  // No need to %15 because we are truncating to 5 bits, and the exp table handles that correctly
     end
     
     GF_exp_table exp1(multiplied,product); 
     
     always @ (*)
     begin
-        if(|A == 0) 
+        if(|A == 0)     // 0^0 will return 0 (0^0 is one of seven indeterminate forms)
             out = 4'h0;
         else if(|B == 0)
             out = 4'h1;

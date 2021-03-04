@@ -26,6 +26,10 @@ module GF_Divide(
     output reg [0:3] out
     );
     
+//    wire [0:3] invB;
+//    GF_Inverse inv(B,invB);
+//    GF_Multiply mult(A,invB,out);
+    
     wire [0:3]logA;
     wire [0:3]logB;
     GF_log_table log1(A[0:3], logA);
@@ -34,16 +38,22 @@ module GF_Divide(
     reg [0:4]added;
     wire [0:3]product;
     
+    wire [0:3] notlogB;
+    assign notlogB = ~logB; // Need to do this here so it maintains 4 bits
+    
     always @ (*)
     begin
-        added = logA + ~logB;   // ~logB = -logB
+        if(|logB == 0)
+            added = logA;
+        else
+            added = logA + notlogB;
     end
     
     GF_exp_table exp1(added,product); 
     
     always @ (*)
     begin
-        if(|A == 0 || |B == 0) 
+        if(~|A || ~|B) // Divide by zero return zero
             out = 4'h0;
         else
             out = product;
