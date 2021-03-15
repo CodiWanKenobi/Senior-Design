@@ -26,4 +26,9 @@ module RS_Encoder(
     );
     
     // Code generating polynomial: g(x) = x^4 + 15x^3 + 3x^2 + x + 12 -> {1,15,3,1,12}
+    wire [0:15] R;
+    RS_Poly_Divide_CGP remainder(in, R);
+    
+    assign out = {in, R};
+    
 endmodule

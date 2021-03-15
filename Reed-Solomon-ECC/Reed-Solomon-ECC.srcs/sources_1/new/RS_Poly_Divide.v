@@ -30,59 +30,6 @@ module RS_Poly_Divide_CGP(  // Returns A % Code Generating polynomial
     input [0:43] A,
     output [0:15] R
     );
-    
-    
-    // https://electronics.stackexchange.com/a/197914
-
-//    wire [0:3] coef0;
-//    wire [0:3] coef1;
-//    wire [0:3] coef2;
-//    wire [0:3] coef3;
-//    wire [0:3] coef4;
-//    wire [0:3] coef5;
-//    wire [0:3] coef6;
-//    wire [0:3] coef7;
-//    wire [0:3] coef8;
-//    wire [0:3] coef9;
-//    wire [0:3] coef10;
-//    assign coef0 = A[0:3];
-//    assign coef1 = A[4:7];
-//    assign coef2 = A[8:11];
-//    assign coef3 = A[12:15];
-//    assign coef4 = A[16:19];
-//    assign coef5 = A[20:23];
-//    assign coef6 = A[24:27];
-//    assign coef7 = A[28:31];
-//    assign coef8 = A[32:35];
-//    assign coef9 = A[36:39];
-//    assign coef10 = A[40:43];
-
-//    reg [0:59] out;
-    //    wire [0:3] coef0;
-//    assign coef0 = A[0:3];
-//    // j = 1
-//    wire [0:3] prod00;
-//    GF_Multiply gfmult00(genpoly1,coef0,prod00);
-//    wire [0:3] q00;
-//    assign q00 = A[4:7] ^ prod00;
-
-//    // j = 2
-//    wire [0:4] prod01;
-//    GF_Multiply gfmult01(genpoly2,coef0,prod01);
-//    wire [0:3] q01;
-//    assign q01 = A[8:11] ^ prod01;
-    
-//    // j = 3
-//    wire [0:4] prod02;
-//    GF_Multiply gfmult02(genpoly3,coef0,prod02);
-//    wire [0:3] q02;
-//    assign q02 = A[12:15] ^ prod02;
-    
-//    // j = 4
-//    wire [0:4] prod03;
-//    GF_Multiply gfmult03(genpoly4,coef0,prod03);
-//    wire [0:3] q03;
-//    assign q03 = A[16:19] ^ prod03;
 
     // i = 0
     wire [0:3] q00;
@@ -164,48 +111,7 @@ module RS_Poly_Divide_CGP(  // Returns A % Code Generating polynomial
     
     
     assign R = {qA0, qA1, qA2, qA3};
-    // i = 1
-//    wire [0:3] coef1;
-//    assign coef1 = q00;
-//    // j = 1
-//    wire [0:3] prod10;
-//    GF_Multiply gfmult10(genpoly1,coef1,prod10);
-//    wire [0:3] q10;
-//    assign q10 = q01 ^ prod10;
-
-//    // j = 2
-//    wire [0:4] prod11;
-//    GF_Multiply gfmult11(genpoly2,coef1,prod11);
-//    wire [0:3] q11;
-//    assign q11 = q02 ^ prod11;
     
-//    // j = 3
-//    wire [0:4] prod12;
-//    GF_Multiply gfmult12(genpoly3,coef1,prod12);
-//    wire [0:3] q12;
-//    assign q12 = q03 ^ prod12;
-    
-//    // j = 4
-//    wire [0:4] prod13;
-//    GF_Multiply gfmult13(genpoly4,coef1,prod13);
-//    wire [0:3] q13;
-//    assign q13 = A[20:23] ^ prod13;
-
-    
-    
-//    reg [0:3] coef;
-//    reg [0:59] out;
-//    integer i;
-//    integer j;
-//    always @ (*) begin
-//        for(i = 0; i < 11; i = i+1) begin
-//            coef = A[i*4 +: 4];
-//            for(j = 1; j < 5; j = j + 1) begin
-//                out[4*(i+j) +: 4] = coef;
-//            end
-//        end
-//    end
-//    assign R = out[44:59];
 endmodule
 
 module polyDivideHelper(
