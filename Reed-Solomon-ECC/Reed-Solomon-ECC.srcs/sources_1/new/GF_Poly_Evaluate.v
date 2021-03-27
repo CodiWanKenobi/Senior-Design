@@ -20,6 +20,24 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
+//Evaluate a polynomial with 3 coefficients
+module GF_Poly_Evaluate3(
+    input [0:11] coef,
+    input [0:11] values,
+    output [0:3] out
+    );
+    
+    wire [0:3]m0;
+    GF_Multiply mult0(coef[0:3],values[0:3],m0);
+    wire [0:3]m1;
+    GF_Multiply mult1(coef[4:7],values[4:7],m1);
+    wire [0:3]m2;
+    GF_Multiply mult2(coef[8:11],values[8:11],m2);
+    assign out = m0 ^ m1 ^ m2;    
+
+endmodule
+
+//Evaluates Polynomial with 14 coefficients
 module GF_Poly_Evaluate(
     input [0:59] coef,
     input [0:59] values,
