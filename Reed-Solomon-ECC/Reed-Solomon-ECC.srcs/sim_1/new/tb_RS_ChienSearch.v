@@ -30,27 +30,27 @@ module tb_RS_ChienSearch();
         lambda = 12'hEE1;
         #50;
         $display("TC01");
-        if(X != 15'b001000000100000) $display ("Result is wrong.");
+        if(X != 15'b000001000000100) $display ("Result is wrong.");
         
         lambda = 12'h511;
         #50;
         $display("TC02");
-        if(X != 15'b000000000001100) $display ("Result is wrong.");
+        if(X != 15'b001100000000000) $display ("Result is wrong.");
         
         lambda = 12'h091;
         #50;
         $display("TC03");
-        if(X != 15'b000000000000001) $display ("Result is wrong.");
+        if(X != 15'b100000000000000) $display ("Result is wrong.");
         
         lambda = 12'h051;
         #50;
         $display("TC04");
-        if(X != 15'b000000001000000) $display ("Result is wrong.");
+        if(X != 15'b000000100000000) $display ("Result is wrong.");
         
         lambda = 12'h111;
         #50;
         $display("TC05");
-        if(X != 15'b000001000010000) $display ("Result is wrong.");
+        if(X != 15'b000010000100000) $display ("Result is wrong.");
         
     end    
 endmodule

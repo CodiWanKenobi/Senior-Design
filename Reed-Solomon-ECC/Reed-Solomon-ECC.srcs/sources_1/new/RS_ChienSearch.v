@@ -92,20 +92,20 @@ module RS_ChienSearch(
     GF_Poly_Evaluate3 deg01(lambda, n01, val01);
     GF_Poly_Evaluate3 deg00(lambda, n00, val00);
     
-    assign X[14] = !(val14[0] | val14[1] | val14[2] | val14[3]);
-    assign X[13] = !(val13[0] | val13[1] | val13[2] | val13[3]);
-    assign X[12] = !(val12[0] | val12[1] | val12[2] | val12[3]);
-    assign X[11] = !(val11[0] | val11[1] | val11[2] | val11[3]);
-    assign X[10] = !(val10[0] | val10[1] | val10[2] | val10[3]);
-    assign X[9] = !(val09[0] | val09[1] | val09[2] | val09[3]);
-    assign X[8] = !(val08[0] | val08[1] | val08[2] | val08[3]);
+    assign X[0] = !(val14[0] | val14[1] | val14[2] | val14[3]);
+    assign X[1] = !(val13[0] | val13[1] | val13[2] | val13[3]);
+    assign X[2] = !(val12[0] | val12[1] | val12[2] | val12[3]);
+    assign X[3] = !(val11[0] | val11[1] | val11[2] | val11[3]);
+    assign X[4] = !(val10[0] | val10[1] | val10[2] | val10[3]);
+    assign X[5] = !(val09[0] | val09[1] | val09[2] | val09[3]);
+    assign X[6] = !(val08[0] | val08[1] | val08[2] | val08[3]);
     assign X[7] = !(val07[0] | val07[1] | val07[2] | val07[3]);
-    assign X[6] = !(val06[0] | val06[1] | val06[2] | val06[3]);
-    assign X[5] = !(val05[0] | val05[1] | val05[2] | val05[3]);
-    assign X[4] = !(val04[0] | val04[1] | val04[2] | val04[3]);
-    assign X[3] = !(val03[0] | val03[1] | val03[2] | val03[3]);
-    assign X[2] = !(val02[0] | val02[1] | val02[2] | val02[3]);
-    assign X[1] = !(val01[0] | val01[1] | val01[2] | val01[3]);
-    assign X[0] = !(val00[0] | val00[1] | val00[2] | val00[3]);
+    assign X[8] = !(val06[0] | val06[1] | val06[2] | val06[3]);
+    assign X[9] = !(val05[0] | val05[1] | val05[2] | val05[3]);
+    assign X[10] = !(val04[0] | val04[1] | val04[2] | val04[3]);
+    assign X[11] = !(val03[0] | val03[1] | val03[2] | val03[3]);
+    assign X[12] = !(val02[0] | val02[1] | val02[2] | val02[3]);
+    assign X[13] = !(val01[0] | val01[1] | val01[2] | val01[3]);
+    assign X[14] = !(val00[0] | val00[1] | val00[2] | val00[3]);
     
 endmodule
