@@ -76,8 +76,8 @@ module RS_BMHelper(
                                     (error0 | error2 ? mult3_out0 : 4'h0));
     GF_Multiply mult3_0(lambda3[4:7], syndrome[4:7], mult3_out0);
     GF_Multiply mult3_1(lambda3[0:3], syndrome[8:11], mult3_out1);
-    GF_PolyScale #(16) scale_cx3(cx3, delta3, cx3_scaled);
-    GF_PolyAdd   #(16) add_lStar3(lambda3, cx3_scaled, lambda_star3);
+    GF_PolyScale #(12) scale_cx3(cx3, delta3, cx3_scaled);
+    GF_PolyAdd   #(12) add_lStar3(lambda3, cx3_scaled, lambda_star3);
     
     always @(syndrome) begin
         delta0 = syndrome[12:15];
