@@ -48,7 +48,7 @@ module RS_BMHelper(
     
     assign lambda1 = error0 ? lambda_star0 : 8'h01;
     assign cx1 = error0 ? {cx0_invScaled[4:7], 4'h0} : cx0;
-    assign delta1 = syndrome[8:11] ^ (error0 ? mult1_out : 4'h0);
+    assign delta1 = syndrome[8:11] ^ ({4{error0}} & mult1_out);
     GF_Inverse inv1(delta1, delta1_inv);
     GF_Multiply mult1(lambda1[0:3], syndrome[12:15], mult1_out);
     GF_PolyScale #(8) scale_cx1(cx1, delta1, cx1_scaled);
@@ -59,7 +59,7 @@ module RS_BMHelper(
                      error0 ? lambda_star0 : lambda0;
     assign cx2 = error1 ? {cx1_invScaled, 4'h0} :
                  error0 ? {cx0_invScaled[4:7], 8'h0} : {cx0, 4'h0};
-    assign delta2 = syndrome[4:7] ^ ((error0 | error1) ? mult2_out : 4'h0);
+    assign delta2 = syndrome[4:7] ^ {4{(error0 | error1)}} & mult2_out;
     GF_Inverse inv2(delta2, delta2_inv);
     GF_Multiply mult2(lambda2[4:7], syndrome[8:11], mult2_out);
     GF_PolyScale #(12) scale_cx2(cx2, delta2, cx2_scaled);
@@ -73,11 +73,11 @@ module RS_BMHelper(
                  error1 ? {cx1_invScaled[4:7], 8'h0} : 
                  error0 ? {cx0_invScaled[4:7], 8'h0} : {cx0, 4'h0};
     assign delta3 = syndrome[0:3] ^ (error0 & error2 ? (mult3_out0 ^ mult3_out1) :
-                                    (error0 | error2 ? mult3_out0 : 4'h0));
+                                    {4{(error0 | error2)}} & mult3_out0);
     GF_Multiply mult3_0(lambda3[4:7], syndrome[4:7], mult3_out0);
     GF_Multiply mult3_1(lambda3[0:3], syndrome[8:11], mult3_out1);
-    GF_PolyScale #(16) scale_cx3(cx3, delta3, cx3_scaled);
-    GF_PolyAdd   #(16) add_lStar3(lambda3, cx3_scaled, lambda_star3);
+    GF_PolyScale #(12) scale_cx3(cx3, delta3, cx3_scaled);
+    GF_PolyAdd   #(12) add_lStar3(lambda3, cx3_scaled, lambda_star3);
     
     always @(syndrome) begin
         delta0 = syndrome[12:15];
