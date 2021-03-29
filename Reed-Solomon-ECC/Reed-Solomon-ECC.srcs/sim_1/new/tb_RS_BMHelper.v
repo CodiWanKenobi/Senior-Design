@@ -67,6 +67,26 @@ module tb_RS_BMHelper();
         #50;
         $display ("Test Case 08");
         if(out != 12'h531) $display ("Result is wrong.");
+        #50;
+        syndrome = 16'hD062;
+        #50;
+        $display ("Test Case 09");
+        if(out != 12'h531) $display ("Result is wrong.");
+        #50;
+        syndrome = 16'h2053;
+        #50;
+        $display ("Test Case 10");
+        if(out != 12'h551) $display ("Result is wrong.");
+        #50;
+        syndrome = 16'h530E; //Delta1 == 0
+        #50;
+        $display ("Test Case 11");
+        if(out != 12'h531) $display ("Result is wrong.");
+        #50;
+        syndrome = 16'hBD37; //Delta2 == 0
+        #50;
+        $display ("Test Case 12");
+        if(out != 12'h0A1) $display ("Result is wrong.");
     end
 
 endmodule
