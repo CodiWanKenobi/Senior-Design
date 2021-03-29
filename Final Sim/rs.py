@@ -25,7 +25,7 @@ class RS:
     # NOTE: Unlike the rest of the code, Syndrome must be in REVERSE order (with lowest degree as first element) 
     def __BMalgo(self, syndrome):
         Lambda = [1] # Lambda(x) = 1
-        Lambda_star = [] # will hold Lambda*(x)
+        Lambda_star = [1] # will hold Lambda*(x)
         Cx = [1, 0] # C(x) = x
         L = 0 #current number of assumed errors, init to 0
         N = len(syndrome) #total number of syndromes
@@ -43,8 +43,8 @@ class RS:
                     Cx = self.field.poly_scale(Lambda, self.field.inverse(delta)) # C(x) = Lambda / e
                     L = (K+1)-L # update L
 
-                Cx = Cx + [0] # C(x) = C(x) * x
-                Lambda = Lambda_star
+            Cx = Cx + [0] # C(x) = C(x) * x
+            Lambda = Lambda_star
 
         return Lambda
 
