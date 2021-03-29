@@ -125,9 +125,11 @@ class RS:
         Y = [0] * len(msg) # list to hold the error magnitude at each position
 
         # Calculate Formal Derivative (this step is holding it back from scaling to symbol size >4)
-        Lambda_prime = Lambda[1]    #Lambda prime for a linear or quadratic polynomial is simply the constant of the 1st degree term
-                                    #Since symbol size 4 will have at most 3 terms in the error locator for a polynomial for a correctable error, this will work
-
+        if(len(Lambda) == 3):
+            Lambda_prime = Lambda[1]    #Lambda prime for a linear or quadratic polynomial is simply the constant of the 1st degree term
+                                        #Since symbol size 4 will have at most 3 terms in the error locator for a polynomial for a correctable error, this will work
+        elif (len(Lambda) == 2):
+            Lambda_prime = Lambda[0]
         # Now find the error magnititudes -> Yi = Xi * Omega(Xi^-1)  / Lambda_prime
         for Xi in X:
             degree = len(msg)-Xi-1
