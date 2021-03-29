@@ -57,6 +57,16 @@ module tb_RS_BMHelper();
         #50;
         $display ("Test Case 06");
         if(out != 12'hF21) $display ("Result is wrong.");
+        #50;
+        syndrome = 16'h6F90;
+        #50;
+        $display ("Test Case 07");
+        if(out != 12'h2D1) $display ("Result is wrong.");
+        #50;
+        syndrome = 16'h07C0;
+        #50;
+        $display ("Test Case 08");
+        if(out != 12'h531) $display ("Result is wrong.");
     end
 
 endmodule
