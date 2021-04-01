@@ -19,30 +19,41 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module GF_log_table(
     input [0:3] in,
-    output reg [0:3] out
+    output [0:3] out
     );
-    always @(*) begin
-        case(in)
-            4'b0000: out = 4'b0000;
-            4'b0001: out = 4'b0000;
-            4'b0010: out = 4'b0001;
-            4'b0011: out = 4'b0100;
-            4'b0100: out = 4'b0010;
-            4'b0101: out = 4'b1000;
-            4'b0110: out = 4'b0101;
-            4'b0111: out = 4'b1010;
-            4'b1000: out = 4'b0011;
-            4'b1001: out = 4'b1110;
-            4'b1010: out = 4'b1001;
-            4'b1011: out = 4'b0111;
-            4'b1100: out = 4'b0110;
-            4'b1101: out = 4'b1101;
-            4'b1110: out = 4'b1011;
-            4'b1111: out = 4'b1100;
-            default: out = 4'b0000;
-        endcase
-    end
+
+    wire bit0,bit1,bit2,bit3;
+        
+    wire [0:3] in_not;
+    assign in_not = ~in;
+    
+    
+    // Wires for repeated terms
+    wire b2_and_b3;
+    and(b2_and_b3, in[2], in[3]);
+    
+    wire b2_and_nb3;
+    and(b2_and_nb3, in[2], in_not[3]);
+    
+    wire nb2_and_b3;
+    and(nb2_and_b3, in_not[2], in[3]);
+    
+    
+    assign bit3 = b2_and_nb3 | 
+                 (in[0] & ((in_not[1] & (in_not[3] | in[2])) | 
+                 (in[1] & nb2_and_b3)));
+          
+    assign bit2 = (in[1] & ( (in_not[2] & in_not[3]) | (in[0] & in_not[3]) | (in_not[0] & b2_and_b3))) |
+                  ((in_not[1] & in[0]) & (in_not[2] | in[3]));
+                  
+    assign bit1 = (in[0] & (in[3] | (in[1] & in_not[2]))) |
+                  (in_not[0] & in[1] & b2_and_nb3) |
+                  (in_not[1] & b2_and_b3);
+                  
+    assign bit0 = (in[0] & ( (nb2_and_b3) | (b2_and_nb3))) |
+                  (in[1] & in[3]);
+                  
+    assign out = {bit0, bit1, bit2, bit3};
 endmodule
