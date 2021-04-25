@@ -18,7 +18,7 @@ class RS:
         for i in range(0, self.N-self.K):
             self.genpoly = self.field.poly_multiply(self.genpoly, [1, self.field.pow(2, i)])
 
-        self.field.printLogT()
+        #self.field.printLogT()
 
     # BMalgo()
     # takes syndrome polynomial as input and outputs locator polynomial, Lambda
@@ -45,8 +45,67 @@ class RS:
 
             Cx = Cx + [0] # C(x) = C(x) * x
             Lambda = Lambda_star
+            #print(Lambda)
 
         return Lambda
+
+    # NOTE: This algo has syndrome in normal order (with highest degree first) 
+    def __BM_high_speed(self, syndrome):
+        # variable_0 represents current iteration of variable
+        # variable_1 represents next iteration of a variable
+        
+        #Initialization
+        t = 2
+        lambda_0 = [0]*t + [1] # lambda(x) = 1 with degree t
+        b_0 = [0]*t + [1]      # b(x) = 1 with degree t, b(x) is basically C(x) from old bm algo
+        k_0 = 0                # scaler k = 0
+        gamma_0 = 1            # scaler gamma = 1
+
+        delta_0 = syndrome[:] # delta(x) = syndrome(x)
+        theta_0 = syndrome[:] # theta(x) = syndrome(x)
+
+        s = len(syndrome)
+
+        for _ in range(0, 2*t):
+            # Step 1:
+            # NOTE: in comments, "polynomial_n" represents the nth degree of that polynomial
+            # next lambda = gamma * lambda(x) - delta_0 * b(x) * x (where we remove highest degree of b) 
+            lambda_1 = self.field.poly_add(self.field.poly_scale(lambda_0, gamma_0), self.field.poly_scale(b_0[1:] + [0], delta_0[s-1]))
+
+            # next delta = gamma * (delta(x) / x) - delta_0 * theta(x)
+            delta_1 =self.field.poly_add(self.field.poly_scale([0] + delta_0[0:s-1], gamma_0), self.field.poly_scale(theta_0, delta_0[s-1]))
+
+            # Step 2: 
+            if (delta_0[s-1] != 0) and (k_0 >= 0):
+                b_1 = lambda_0 # next b(x) = lambda(x)
+                theta_1 = [0] + delta_0[0:s-1] # next theta(x) = delta(x) / x
+                gamma_1 = delta_0[s-1] # next gamma = delta_0
+                k_1 = -k_0 - 1 # next k = -(k+1)
+            else:
+                b_1 = b_0[1:] + [0] # next b(x) = b(x) * x
+                theta_1 = theta_0 # next theta(x) = theta(x)
+                gamma_1 = gamma_0 # next gamma = gamma
+                k_1 = k_0 + 1 # next k = k+1
+
+            # Set current iterations to next iterations
+            #print(lambda_1)
+            lambda_0 = lambda_1
+            delta_0 = delta_1
+            b_0 = b_1
+            theta_0 = theta_1
+            gamma_0 = gamma_1
+            k_0 = k_1
+
+        return [lambda_0, delta_0[s-2:]]
+
+
+            
+
+
+        
+
+
+
 
     # Encode()
     # Takes a python list containing the message already split into its symbols
@@ -97,6 +156,9 @@ class RS:
         # The BM algo needs the syndrome list to be in reverse order
         Lambda = self.__BMalgo(syndrome[::-1])
         print("Lambda:", Lambda)
+        [newL, newO] = self.__BM_high_speed(syndrome)
+        print("New Lambda and New Omega:", newL, newO)
+        Lambda = newL
         
         error_count = len(Lambda) - 1
         #This is currently not working, sometimes 3 errors will not be detected
