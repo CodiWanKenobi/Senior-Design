@@ -32,10 +32,10 @@ module RS_Decoder(
     wire [0:59] buffer;
     
     RS_Syndrome syn(msg, syndrome);
-    RS_BM_Fast lamb(syndrome, lambda);
+    RS_BM_Fast lamb(syndrome, lambda, omega);
     RS_ChienSearch chien(lambda, X);
-    RS_CalcOmega omeg(syndrome, lambda, omega);
-    RS_ForneyAlgo forney(lambda, omega, X, Y);
+    //RS_CalcOmega omeg(syndrome, lambda, omega);
+    RS_NewForney forney(lambda, omega, X, Y);
     GF_PolyAdd #(60) padd(msg, Y, buffer);
     
     always@(*) begin

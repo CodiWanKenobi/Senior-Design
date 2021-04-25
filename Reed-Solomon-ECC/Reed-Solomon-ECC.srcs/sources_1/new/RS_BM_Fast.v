@@ -22,7 +22,8 @@
 
 module RS_BM_Fast(
     input [0:15] syndrome,
-    output [0:11] lambda4
+    output [0:11] lambda4,
+    output [0:7] omegaH
     );
     wire check0, check1, check2;
     wire [0:11] lambda0, lambda1, lambda2, lambda3, b0, b1, b2, b3, ls0, ls1,
@@ -45,9 +46,9 @@ module RS_BM_Fast(
     GF_PolyScale #(12) scale_bs0 (b0 << 4, delta0[12:15], bs0); 
     GF_PolyAdd #(12) padd_l1 (ls0, bs0, lambda1);
     
-    GF_PolyScale #(12) scale_ds0 (delta0 >> 4, gamma0, ds0);
-    GF_PolyScale #(12) scale_ts0 (theta0, delta0[12:15], ts0); 
-    GF_PolyAdd #(12) padd_d1 (ds0, ts0, delta1);
+    GF_PolyScale #(16) scale_ds0 (delta0 >> 4, gamma0, ds0);
+    GF_PolyScale #(16) scale_ts0 (theta0, delta0[12:15], ts0); 
+    GF_PolyAdd #(16) padd_d1 (ds0, ts0, delta1);
     
     //Step 0.2
     // check = delta[12:15] != 0 && k >= 0
@@ -62,9 +63,9 @@ module RS_BM_Fast(
     GF_PolyScale #(12) scale_bs1 (b1 << 4, delta1[12:15], bs1); 
     GF_PolyAdd #(12) padd_l2 (ls1, bs1, lambda2);
     
-    GF_PolyScale #(12) scale_ds1 (delta1 >> 4, gamma1, ds1);
-    GF_PolyScale #(12) scale_ts1 (theta1, delta1[12:15], ts1); 
-    GF_PolyAdd #(12) padd_d2 (ds1, ts1, delta2);
+    GF_PolyScale #(16) scale_ds1 (delta1 >> 4, gamma1, ds1);
+    GF_PolyScale #(16) scale_ts1 (theta1, delta1[12:15], ts1); 
+    GF_PolyAdd #(16) padd_d2 (ds1, ts1, delta2);
     
     //Step 1.2
     assign check1 = delta1[12] | delta1[13] | delta1[14] | delta1[15] & !k1[15];
@@ -78,9 +79,9 @@ module RS_BM_Fast(
     GF_PolyScale #(12) scale_bs2 (b2 << 4, delta2[12:15], bs2); 
     GF_PolyAdd #(12) padd_l3 (ls2, bs2, lambda3);
     
-    GF_PolyScale #(12) scale_ds2 (delta2 >> 4, gamma2, ds2);
-    GF_PolyScale #(12) scale_ts2 (theta2, delta2[12:15], ts2); 
-    GF_PolyAdd #(12) padd_d3 (ds2, ts2, delta3);
+    GF_PolyScale #(16) scale_ds2 (delta2 >> 4, gamma2, ds2);
+    GF_PolyScale #(16) scale_ts2 (theta2, delta2[12:15], ts2); 
+    GF_PolyAdd #(16) padd_d3 (ds2, ts2, delta3);
     
     //Step 2.2
     assign check2 = delta2[12] | delta2[13] | delta2[14] | delta2[15] & !k2[15];
@@ -94,9 +95,11 @@ module RS_BM_Fast(
     GF_PolyScale #(12) scale_bs3 (b3 << 4, delta3[12:15], bs3); 
     GF_PolyAdd #(12) padd_l4 (ls3, bs3, lambda4);
     
-    GF_PolyScale #(12) scale_ds3 (delta3 >> 4, gamma3, ds3);
-    GF_PolyScale #(12) scale_ts3 (theta3, delta3[12:15], ts3); 
-    GF_PolyAdd #(12) padd_d4 (ds3, ts3, delta4);
+    GF_PolyScale #(16) scale_ds3 (delta3 >> 4, gamma3, ds3);
+    GF_PolyScale #(16) scale_ts3 (theta3, delta3[12:15], ts3); 
+    GF_PolyAdd #(16) padd_d4 (ds3, ts3, delta4);
+    
+    assign omegaH = delta4[8:15];
     
     //Step 2.2
     
