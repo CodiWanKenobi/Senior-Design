@@ -23,7 +23,7 @@
 module GF_Divide(
     input [0:3] A,
     input [0:3] B,
-    output reg [0:3] out
+    output [0:3] out
     );
     
 //    wire [0:3] invB;
@@ -35,27 +35,16 @@ module GF_Divide(
     GF_log_table log1(A[0:3], logA);
     GF_log_table log2(B[0:3], logB);
     
-    reg [0:4]added;
+    wire [0:4]added;
     wire [0:3]product;
     
     wire [0:3] notlogB;
     assign notlogB = ~logB; // Need to do this here so it maintains 4 bits
     
-    always @ (*)
-    begin
-        if(|logB == 0)
-            added = logA;
-        else
-            added = logA + notlogB;
-    end
+    assign added = |logB ? logA + notlogB : logA;
     
     GF_exp_table exp1(added,product); 
     
-    always @ (*)
-    begin
-        if(~|A || ~|B) // Divide by zero return zero
-            out = 4'h0;
-        else
-            out = product;
-    end
+    assign out = product & {4{(|A) & (|B)}};
+    
 endmodule
