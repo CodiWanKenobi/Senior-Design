@@ -36,7 +36,7 @@ module RS_Decoder(
     RS_ChienSearch chien(lambda, X);
     //RS_CalcOmega omeg(syndrome, lambda, omega);
     RS_NewForney forney(lambda, omega, X, Y);
-    GF_PolyAdd #(60) padd(msg, Y, buffer);
+    GF_PolyAdd #(44) padd(msg[0:43], Y[0:43], buffer[0:43]);
     
     always@(*) begin
         if(syndrome)

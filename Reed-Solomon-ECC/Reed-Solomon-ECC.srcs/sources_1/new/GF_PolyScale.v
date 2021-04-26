@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module GF_PolyScale #(integer SIZE=20)(
+module GF_PolyScale #(parameter SIZE=20)(
     input [0:SIZE-1] poly,
     input [0:3] scalar,
     output [0:SIZE-1] scaled

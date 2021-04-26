@@ -136,9 +136,9 @@ module polyDivideHelper(
     assign out1 = sym1 ^ prod11;
     
     // j = 3
-    wire [0:3] prod12;
-    GF_Multiply gfmult12(`genpoly3,coef,prod12);
-    assign out2 = sym2 ^ prod12;
+//    wire [0:3] prod12;
+//    GF_Multiply gfmult12(`genpoly3,coef,prod12);
+    assign out2 = sym2 ^ coef;
     
     // j = 4
     wire [0:3] prod13;

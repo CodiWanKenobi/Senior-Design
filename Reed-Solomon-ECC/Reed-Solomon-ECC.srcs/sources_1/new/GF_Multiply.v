@@ -23,7 +23,7 @@
 module GF_Multiply(
     input [0:3] A,
     input [0:3] B,
-    output reg [0:3] out
+    output [0:3] out
     );
    
     wire [0:3]logA;
@@ -31,21 +31,12 @@ module GF_Multiply(
     GF_log_table log1(A[0:3], logA);
     GF_log_table log2(B[0:3], logB);
     
-    reg [0:4]added;
-    wire [0:3]product;
+    wire [0:4] added;
+    wire [0:3] product;
     
-    always @ (*)
-    begin
-        added = logA + logB;
-    end
+    assign added = logA + logB;
     
-    GF_exp_table exp1(added,product); 
+    GF_exp_table exp1(added,product);
     
-    always @ (*)
-    begin
-        if(~|A || ~|B) 
-            out = 4'h0;
-        else
-            out = product;
-    end
+    assign out = product & {4{(|A) & (|B)}};
 endmodule

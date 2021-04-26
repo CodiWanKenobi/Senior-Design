@@ -29,13 +29,10 @@ module GF_Pow(
     wire [0:3]logA;
     GF_log_table log1(A[0:3], logA);
     
-    reg [0:4]multiplied;
+    wire [0:4]multiplied;
     wire [0:3]product;
     
-    always @ (*)
-    begin
-        multiplied = logA * B;  // No need to %15 because we are truncating to 5 bits, and the exp table handles that correctly
-    end
+    assign multiplied = logA * B;
     
     GF_exp_table exp1(multiplied,product); 
     

@@ -31,13 +31,12 @@ module RS_BM_Fast(
     wire [0:15] delta0, delta1, delta2, delta3, delta4, theta0, theta1, theta2,
     theta3, ds0, ds1, ds2, ds3, ts0, ts1, ts2, ts3;
     wire [0:3] gamma0, gamma1, gamma2, gamma3;
-    wire signed [15:0] k0, k1, k2, k3;
+    wire signed [15:0] k1, k2;
     
     //Init
     assign lambda0 = 12'h001;
     assign b0 = 12'h001;
     assign gamma0 = 4'h1;
-    assign k0 = 0;
     assign delta0 = syndrome;
     assign theta0 = syndrome;
     
@@ -52,11 +51,11 @@ module RS_BM_Fast(
     
     //Step 0.2
     // check = delta[12:15] != 0 && k >= 0
-    assign check0 = delta0[12] | delta0[13] | delta0[14] | delta0[15] & !k0[15];
+    assign check0 = delta0[12] | delta0[13] | delta0[14] | delta0[15];
     assign b1 = check0 ? lambda0 : b0 << 4;
     assign theta1 = check0 ? delta0 >> 4 : theta0;
     assign gamma1 = check0 ? delta0[12:15] : gamma0;
-    assign k1 = check0 ? -k0 - 1 : k0 + 1;
+    assign k1 = check0 ? -1 : 1;
     
     //Step 1.1
     GF_PolyScale #(12) scale_ls1 (lambda1, gamma1, ls1);
@@ -88,7 +87,6 @@ module RS_BM_Fast(
     assign b3 = check2 ? lambda2 : b2 << 4;
     assign theta3 = check2 ? delta2 >> 4 : theta2;
     assign gamma3 = check2 ? delta2[12:15] : gamma2;
-    assign k3 = check2 ? -k2 - 1 : k2 + 1;
     
     //Step 3.1
     GF_PolyScale #(12) scale_ls3 (lambda3, gamma3, ls3);

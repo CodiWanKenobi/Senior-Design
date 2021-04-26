@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module GF_PolyAdd #(SIZE=20)(
+module GF_PolyAdd #(parameter SIZE=20)(
     input [0:SIZE-1] a, // Lowest degree term should be at least-significant bits for a and b
     input [0:SIZE-1] b,
     output [0:SIZE-1] sum

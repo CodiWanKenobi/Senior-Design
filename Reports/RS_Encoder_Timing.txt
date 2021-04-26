@@ -1,0 +1,65 @@
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+        -sort_by group
+Design : RS_Encoder
+Version: R-2020.09-SP1
+Date   : Mon Apr 26 13:30:32 2021
+****************************************
+
+Operating Conditions: typical   Library: gscl45nm
+Wire Load Model Mode: top
+
+  Startpoint: in[0] (input port)
+  Endpoint: out[47] (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 r
+  in[0] (in)                               0.00       0.00 r
+  U342/Y (INVX1)                           0.05       0.05 f
+  U349/Y (MUX2X1)                          0.08       0.12 r
+  U357/Y (MUX2X1)                          0.09       0.22 r
+  U358/YS (HAX1)                           0.08       0.30 r
+  U359/Y (MUX2X1)                          0.14       0.43 r
+  U368/YS (FAX1)                           0.11       0.54 f
+  U369/Y (MUX2X1)                          0.12       0.66 r
+  U373/YS (HAX1)                           0.12       0.78 r
+  U374/YS (HAX1)                           0.08       0.85 r
+  U375/YS (FAX1)                           0.17       1.02 r
+  U388/YS (HAX1)                           0.14       1.17 r
+  U402/YS (FAX1)                           0.10       1.27 f
+  U403/YS (FAX1)                           0.11       1.38 r
+  U404/Y (XNOR2X1)                         0.12       1.50 r
+  U407/YS (FAX1)                           0.11       1.60 f
+  U408/YS (FAX1)                           0.20       1.81 r
+  U434/YS (HAX1)                           0.14       1.94 r
+  U444/YS (FAX1)                           0.16       2.10 r
+  U446/Y (XNOR2X1)                         0.15       2.25 r
+  U449/YS (FAX1)                           0.11       2.36 f
+  U450/YS (FAX1)                           0.15       2.51 r
+  U454/Y (XNOR2X1)                         0.12       2.63 r
+  U487/Y (INVX1)                           0.06       2.69 f
+  U488/YS (FAX1)                           0.09       2.78 r
+  U489/YS (FAX1)                           0.11       2.89 r
+  U490/Y (XNOR2X1)                         0.11       2.99 r
+  U493/YS (FAX1)                           0.10       3.10 r
+  U494/YS (FAX1)                           0.11       3.20 f
+  U509/Y (INVX1)                           0.08       3.28 r
+  U525/Y (XNOR2X1)                         0.09       3.37 r
+  U528/YS (FAX1)                           0.10       3.47 f
+  U529/YS (FAX1)                           0.13       3.60 r
+  U530/Y (INVX1)                           0.06       3.66 f
+  U540/Y (MUX2X1)                          0.09       3.75 r
+  U580/YS (FAX1)                           0.10       3.84 f
+  U581/Y (MUX2X1)                          0.03       3.88 r
+  out[47] (out)                            0.00       3.88 r
+  data arrival time                                   3.88
+  -----------------------------------------------------------
+  (Path is unconstrained)
+
+
