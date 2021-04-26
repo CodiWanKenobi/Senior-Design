@@ -42,10 +42,13 @@ module RS_NewForney(
     
     GF_Poly_Evaluate2 pe0(omega, Xi_inv[0:7], omegaEval[0:3]);
     GF_Poly_Evaluate2 pe1(omega, Xi_inv[8:15], omegaEval[4:7]);
-    GF_Multiply m0(power[0:3], omegaEval[0:3], numerator[0:3]);
-    GF_Multiply m1(power[4:7], omegaEval[4:7], numerator[4:7]);  
-    GF_Divide d0(numerator[0:3], lambda[4:7], magnitude[0:3]);
-    GF_Divide d1(numerator[4:7], lambda[4:7], magnitude[4:7]);
+    
+    GF_Divide d0(power[0:3], lambda[4:7], numerator[0:3]);
+    GF_Divide d1(power[4:7], lambda[4:7], numerator[4:7]);
+    
+    GF_Multiply m0(numerator[0:3], omegaEval[0:3], magnitude[0:3]);
+    GF_Multiply m1(numerator[4:7], omegaEval[4:7], magnitude[4:7]);  
+    
     
     RS_ForneyModule x0(
         .X(X[0]),
