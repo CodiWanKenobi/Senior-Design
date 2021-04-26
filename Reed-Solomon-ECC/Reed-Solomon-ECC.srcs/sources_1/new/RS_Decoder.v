@@ -21,28 +21,26 @@
 
 
 module RS_Decoder(
-    input [0:59] msg,
-    output reg [0:43] decoded
+    input  [0:59] msg,
+    output [0:43] decoded,
+    output valid
     );
     wire [0:15] syndrome;
-    wire [0:11] lambda;
-    wire [0:7] omega;
     wire [0:14] X;
-    wire [0:59] Y;
-    wire [0:59] buffer;
+    wire [0:43] Y;
+    wire [0:11] lambda;
+    wire [0:7]  omega;
+
+    wire [0:43] buffer;
+
     
     RS_Syndrome syn(msg, syndrome);
     RS_BM_Fast lamb(syndrome, lambda, omega);
     RS_ChienSearch chien(lambda, X);
     //RS_CalcOmega omeg(syndrome, lambda, omega);
     RS_NewForney forney(lambda, omega, X, Y);
-    GF_PolyAdd #(44) padd(msg[0:43], Y[0:43], buffer[0:43]);
+    GF_PolyAdd #(44) padd(msg[0:43], Y, buffer);
     
-    always@(*) begin
-        if(syndrome)
-            decoded = buffer[0:43];
-        else
-            decoded = msg[0:43];
-    end
-    
+    assign decoded = (|syndrome) ? buffer : msg[0:43];
+    assign valid = (|syndrome) ? (|X) : ~(|X);
 endmodule

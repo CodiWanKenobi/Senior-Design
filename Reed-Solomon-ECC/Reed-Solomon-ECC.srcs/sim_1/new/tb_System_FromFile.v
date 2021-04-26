@@ -27,9 +27,10 @@ module tb_System_FromFile();
     wire [0:59] encoded_data;
     reg [0:59] modified_data;
     wire [0:43] out_data;
+    wire valid;
     
     RS_Encoder rse(in_data,encoded_data);
-    RS_Decoder rsd(modified_data,out_data);
+    RS_Decoder rsd(modified_data,out_data,valid);
     
     integer outFile,inFile;
 
@@ -49,7 +50,7 @@ module tb_System_FromFile();
             $fdisplay(outFile, "Encoded data: %h", encoded_data);   //write data 
             $fdisplay(outFile, "Error mask: %h", error_mask);   //write data 
             $fdisplay(outFile, "Corrected data: %h", out_data);   //write data 
-            if(in_data == out_data) begin
+            if (((in_data == out_data) && valid) || ((in_data != out_data) && (~valid))) begin
                 $fdisplay(outFile, "Success\n");   //write data 
             end else begin
                 $fdisplay(outFile, "Failure\n");   //write data 
