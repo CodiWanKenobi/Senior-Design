@@ -1,0 +1,240 @@
+****************************************
+Report : timing
+	-path_type full
+	-delay_type max
+	-max_paths 1
+	-sort_by slack
+Design : RS_Top
+Version: R-2020.09-SP1
+Date   : Mon Apr 26 17:21:41 2021
+****************************************
+
+
+  Startpoint: in[0] (input port clocked by vclk)
+  Endpoint: out[10] (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Point                                    Incr       Path
+  ---------------------------------------------------------------
+  input external delay                   0.0000     0.0000 r
+  in[0] (in)                             0.0000     0.0000 r
+  enc/U265/Y (INVX1)                     0.0298     0.0298 f
+  enc/U266/Y (MUX2X1)                    0.0714     0.1012 r
+  enc/U402/Y (MUX2X1)                    0.0688     0.1700 r
+  enc/U403/Y (MUX2X1)                    0.1058     0.2758 r
+  enc/U418/Y (INVX1)                     0.0527     0.3285 f
+  enc/U420/Y (MUX2X1)                    0.1132     0.4417 r
+  enc/U424/YS (FAX1)                     0.1035     0.5452 f
+  enc/U425/Y (MUX2X1)                    0.1306     0.6758 r
+  dec/U8177/Y (INVX1)                    0.0606     0.7364 f
+  dec/U8178/Y (AOI22X1)                  0.0228     0.7593 r
+  dec/U8001/Y (BUFX2)                    0.0456     0.8049 r
+  dec/U8179/Y (INVX1)                    0.0366     0.8415 f
+  dec/U8259/Y (MUX2X1)                   0.0929     0.9343 r
+  dec/U8298/YS (HAX1)                    0.1393     1.0737 r
+  dec/U8302/YS (FAX1)                    0.1216     1.1953 r
+  dec/U8431/Y (INVX1)                    0.0533     1.2485 f
+  dec/U8048/Y (AND2X1)                   0.0354     1.2839 f
+  dec/U8049/Y (INVX1)                    0.0273     1.3112 r
+  dec/U7329/Y (AND2X1)                   0.0642     1.3755 r
+  dec/U9853/Y (AOI21X1)                  0.0418     1.4172 f
+  dec/U8129/Y (OR2X1)                    0.0482     1.4654 f
+  dec/U8130/Y (INVX1)                    0.2825     1.7479 r
+  dec/add_x_152/U3/YC (FAX1)             0.0962     1.8441 r
+  dec/add_x_152/U2/YC (FAX1)             0.0715     1.9156 r
+  dec/U8046/Y (OR2X1)                    0.0755     1.9912 r
+  dec/U8047/Y (INVX1)                    0.0388     2.0299 f
+  dec/U7213/Y (AND2X1)                   0.0462     2.0762 f
+  dec/U8342/Y (AOI22X1)                  0.0489     2.1251 r
+  dec/U8368/Y (NAND3X1)                  0.0272     2.1524 f
+  dec/U8398/Y (INVX1)                    0.0040     2.1564 r
+  dec/U8399/Y (NAND2X1)                  0.0097     2.1661 f
+  dec/U8400/Y (OAI21X1)                  0.0223     2.1884 r
+  dec/U7631/Y (AND2X1)                   0.0281     2.2165 r
+  dec/U7632/Y (INVX1)                    0.0195     2.2359 f
+  dec/U8401/Y (NAND2X1)                  0.0311     2.2670 r
+  dec/U8402/YS (HAX1)                    0.0903     2.3573 r
+  dec/U8741/Y (INVX1)                    0.0363     2.3936 f
+  dec/U10246/Y (NAND2X1)                 0.0369     2.4304 r
+  dec/U10613/Y (AOI21X1)                 0.0326     2.4630 f
+  dec/U7475/Y (BUFX2)                    0.0407     2.5037 f
+  dec/add_x_146/U4/YC (FAX1)             0.0847     2.5883 f
+  dec/add_x_146/U3/YC (FAX1)             0.0814     2.6697 f
+  dec/add_x_146/U2/YC (FAX1)             0.0891     2.7589 f
+  dec/U8329/Y (INVX1)                    0.0210     2.7799 r
+  dec/U7689/Y (AND2X1)                   0.0414     2.8212 r
+  dec/U7690/Y (INVX1)                    0.0222     2.8435 f
+  dec/U8333/Y (NAND3X1)                  0.0395     2.8829 r
+  dec/U8334/Y (INVX1)                    0.0309     2.9138 f
+  dec/U8335/Y (NAND2X1)                  0.0167     2.9306 r
+  dec/U8336/Y (AOI22X1)                  0.0212     2.9518 f
+  dec/U6899/Y (BUFX2)                    0.0408     2.9926 f
+  dec/U8479/Y (OAI21X1)                  0.0399     3.0325 r
+  dec/U8480/Y (INVX1)                    0.0261     3.0586 f
+  dec/U8481/YS (HAX1)                    0.0751     3.1337 r
+  dec/U8482/Y (INVX1)                    0.0407     3.1743 f
+  dec/U10620/Y (NAND2X1)                 0.0231     3.1975 r
+  dec/U8097/Y (AND2X1)                   0.0506     3.2481 r
+  dec/U10628/Y (AOI22X1)                 0.0387     3.2867 f
+  dec/U8096/Y (BUFX2)                    0.0520     3.3387 f
+  dec/add_x_129/U5/YC (HAX1)             0.0627     3.4014 f
+  dec/add_x_129/U4/YC (FAX1)             0.0816     3.4830 f
+  dec/add_x_129/U3/YC (FAX1)             0.0814     3.5644 f
+  dec/add_x_129/U2/YC (FAX1)             0.0946     3.6590 f
+  dec/U7067/Y (AND2X1)                   0.0362     3.6952 f
+  dec/U7068/Y (INVX1)                   -0.0003     3.6949 r
+  dec/U7065/Y (INVX1)                    0.0115     3.7065 f
+  dec/U7066/Y (INVX1)                    0.0150     3.7215 r
+  dec/U7929/Y (INVX1)                    0.0130     3.7345 f
+  dec/U7932/Y (NOR2X1)                   0.0272     3.7618 r
+  dec/U7933/Y (INVX1)                    0.0186     3.7804 f
+  dec/U7931/Y (NOR2X1)                   0.0265     3.8069 r
+  dec/U7928/Y (INVX1)                    0.0259     3.8328 f
+  dec/U8775/Y (NAND2X1)                  0.0310     3.8638 r
+  dec/U8777/Y (AOI22X1)                  0.0348     3.8987 f
+  dec/U8779/Y (AOI22X1)                  0.0391     3.9378 r
+  dec/U6948/Y (BUFX2)                    0.0409     3.9787 r
+  dec/U8793/Y (AOI22X1)                  0.0184     3.9971 f
+  dec/U8794/Y (NAND3X1)                  0.0361     4.0332 r
+  dec/U8795/Y (NAND2X1)                  0.0240     4.0572 f
+  dec/U8803/YS (HAX1)                    0.0722     4.1294 f
+  dec/U7038/Y (AND2X1)                   0.0445     4.1739 f
+  dec/U7039/Y (INVX1)                    0.0001     4.1741 r
+  dec/U7036/Y (INVX1)                    0.0115     4.1856 f
+  dec/U7037/Y (INVX1)                    0.0146     4.2002 r
+  dec/U10097/Y (AOI21X1)                 0.0103     4.2105 f
+  dec/U10100/Y (NOR3X1)                  0.2028     4.4133 r
+  dec/add_x_125/U4/YC (FAX1)             0.0917     4.5050 r
+  dec/add_x_125/U3/YC (FAX1)             0.0735     4.5785 r
+  dec/add_x_125/U2/YC (FAX1)             0.0721     4.6506 r
+  dec/U7271/Y (AND2X1)                   0.0380     4.6886 r
+  dec/U7272/Y (INVX1)                    0.0300     4.7186 f
+  dec/U8826/Y (NAND2X1)                  0.0219     4.7405 r
+  dec/U8858/Y (INVX1)                    0.0290     4.7695 f
+  dec/U8859/Y (NAND2X1)                  0.0350     4.8045 r
+  dec/U8987/Y (INVX1)                    0.0317     4.8363 f
+  dec/U8988/Y (AOI22X1)                  0.0412     4.8775 r
+  dec/U8989/Y (NAND2X1)                  0.0206     4.8981 f
+  dec/U8993/Y (AOI21X1)                  0.0345     4.9326 r
+  dec/U8995/Y (AOI21X1)                  0.0190     4.9516 f
+  dec/U6902/Y (BUFX2)                    0.0367     4.9882 f
+  dec/U8996/Y (XNOR2X1)                  0.1762     5.1645 r
+  dec/U9080/YS (HAX1)                    0.1398     5.3043 r
+  dec/U9081/YS (HAX1)                    0.1130     5.4173 r
+  dec/U9082/Y (XNOR2X1)                  0.0522     5.4695 f
+  dec/U9083/Y (AND2X1)                   0.0475     5.5169 f
+  dec/U9085/Y (OAI21X1)                  0.0418     5.5587 r
+  dec/U9086/Y (AOI21X1)                  0.0195     5.5783 f
+  dec/U7593/Y (BUFX2)                    0.0336     5.6119 f
+  dec/U9087/Y (OAI21X1)                  0.0164     5.6283 r
+  dec/U9088/Y (AOI21X1)                  0.0197     5.6480 f
+  dec/U9089/Y (OAI21X1)                  0.0617     5.7097 r
+  dec/U8074/Y (AND2X1)                   0.0573     5.7670 r
+  dec/U8075/Y (INVX1)                    0.0448     5.8118 f
+  dec/U7187/Y (AND2X1)                   0.0441     5.8559 f
+  dec/U7188/Y (INVX1)                    0.0002     5.8561 r
+  dec/U7185/Y (INVX1)                    0.0115     5.8676 f
+  dec/U7186/Y (INVX1)                    0.0170     5.8846 r
+  dec/U7324/Y (AND2X1)                   0.0285     5.9131 r
+  dec/U7325/Y (INVX1)                    0.0321     5.9453 f
+  dec/U10020/Y (AOI21X1)                 0.0248     5.9701 r
+  dec/U10021/Y (AOI22X1)                 0.0226     5.9926 f
+  dec/U10023/Y (AOI22X1)                 0.0482     6.0408 r
+  dec/U10024/Y (AOI22X1)                 0.0368     6.0777 f
+  dec/U10025/Y (AOI21X1)                 0.0232     6.1009 r
+  dec/U7134/Y (BUFX2)                    0.0328     6.1337 r
+  dec/U7132/Y (INVX1)                    0.0132     6.1470 f
+  dec/U7133/Y (INVX1)                    0.0154     6.1624 r
+  dec/U10027/Y (INVX1)                   0.0163     6.1786 f
+  dec/U7238/Y (AND2X1)                   0.0537     6.2323 f
+  dec/U10035/Y (OAI21X1)                 0.0462     6.2785 r
+  dec/U10036/Y (AOI22X1)                 0.0280     6.3066 f
+  dec/add_x_85/U5/YC (HAX1)              0.0668     6.3733 f
+  dec/add_x_85/U4/YC (FAX1)              0.0815     6.4549 f
+  dec/add_x_85/U3/YC (FAX1)              0.0815     6.5363 f
+  dec/add_x_85/U2/YC (FAX1)              0.0756     6.6119 f
+  dec/U9877/Y (OR2X1)                    0.0641     6.6760 f
+  dec/U9895/Y (AND2X1)                   0.0428     6.7188 f
+  dec/U9896/Y (NAND3X1)                  0.0465     6.7652 r
+  dec/U9981/Y (INVX1)                    0.0265     6.7917 f
+  dec/U9983/Y (AOI22X1)                  0.0373     6.8290 r
+  dec/U7613/Y (INVX1)                    0.0247     6.8538 f
+  dec/U7616/Y (NOR2X1)                   0.0262     6.8799 r
+  dec/U7617/Y (INVX1)                    0.0198     6.8997 f
+  dec/U7615/Y (NOR2X1)                   0.0265     6.9262 r
+  dec/U7611/Y (INVX1)                    0.0190     6.9452 f
+  dec/U9985/Y (NAND2X1)                  0.0199     6.9651 r
+  dec/U9987/YS (HAX1)                    0.0793     7.0444 f
+  dec/U9993/Y (NAND2X1)                  0.0409     7.0853 r
+  dec/U7576/Y (INVX1)                    0.0251     7.1104 f
+  dec/U7579/Y (NOR2X1)                   0.0262     7.1366 r
+  dec/U7580/Y (INVX1)                    0.0198     7.1564 f
+  dec/U7578/Y (NOR2X1)                   0.0265     7.1829 r
+  dec/U7575/Y (INVX1)                    0.0181     7.2010 f
+  dec/U9994/Y (INVX1)                    0.0038     7.2048 r
+  dec/U9995/Y (NOR3X1)                   0.0345     7.2393 f
+  dec/add_x_20/U4/YC (FAX1)              0.0932     7.3325 f
+  dec/add_x_20/U3/YC (FAX1)              0.0815     7.4139 f
+  dec/add_x_20/U2/YC (FAX1)              0.0864     7.5003 f
+  dec/U8084/Y (OR2X1)                    0.0603     7.5606 f
+  dec/U10378/Y (NAND3X1)                 0.0344     7.5951 r
+  dec/U7007/Y (BUFX2)                    0.0337     7.6287 r
+  dec/U7005/Y (INVX1)                    0.0136     7.6423 f
+  dec/U7006/Y (INVX1)                    0.0141     7.6564 r
+  dec/U10394/Y (NAND2X1)                 0.0158     7.6722 f
+  dec/U10395/Y (NAND2X1)                 0.0224     7.6946 r
+  dec/U10405/Y (INVX1)                   0.0247     7.7193 f
+  dec/U10407/Y (AOI21X1)                 0.0338     7.7531 r
+  dec/U7205/Y (BUFX2)                    0.0328     7.7859 r
+  dec/U7203/Y (INVX1)                    0.0132     7.7991 f
+  dec/U7204/Y (INVX1)                    0.0184     7.8175 r
+  dec/U7487/Y (OR2X1)                    0.0364     7.8539 r
+  dec/U7486/Y (INVX1)                    0.0340     7.8879 f
+  dec/U10412/Y (OAI21X1)                 0.0472     7.9351 r
+  dec/U10414/Y (AOI22X1)                 0.0236     7.9587 f
+  dec/U7086/Y (BUFX2)                    0.0369     7.9956 f
+  dec/U7084/Y (INVX1)                   -0.0028     7.9928 r
+  dec/U7085/Y (INVX1)                    0.0207     8.0135 f
+  dec/U10418/Y (OAI21X1)                 0.0532     8.0667 r
+  dec/U10419/Y (OR2X1)                   0.0585     8.1251 r
+  dec/U10420/Y (INVX1)                   0.0229     8.1480 f
+  dec/U10422/Y (OAI21X1)                 0.0615     8.2096 r
+  dec/U10424/Y (OAI21X1)                 0.0308     8.2403 f
+  dec/U10425/Y (AOI21X1)                 0.0162     8.2565 r
+  dec/U7093/Y (BUFX2)                    0.0328     8.2893 r
+  dec/U7091/Y (INVX1)                    0.0132     8.3025 f
+  dec/U7092/Y (INVX1)                    0.0153     8.3178 r
+  dec/U10435/YS (HAX1)                   0.0659     8.3837 r
+  dec/U10471/Y (INVX1)                   0.0328     8.4165 f
+  dec/U10475/Y (NAND3X1)                 0.0400     8.4564 r
+  dec/U10476/Y (OAI21X1)                 0.0289     8.4853 f
+  dec/U10478/Y (AOI22X1)                 0.0392     8.5245 r
+  dec/U6944/Y (BUFX2)                    0.0407     8.5652 r
+  dec/U10479/Y (AOI22X1)                 0.0182     8.5835 f
+  dec/U8040/Y (AND2X1)                   0.0559     8.6394 f
+  dec/U8041/Y (INVX1)                    0.0270     8.6663 r
+  dec/U7368/Y (OR2X1)                    0.0472     8.7135 r
+  dec/U7369/Y (INVX1)                    0.0300     8.7435 f
+  dec/U10586/Y (AOI22X1)                 0.0573     8.8008 r
+  dec/U10587/Y (MUX2X1)                  0.0391     8.8399 r
+  out[10] (out)                          0.0000     8.8399 r
+  data arrival time                                 8.8399
+  ---------------------------------------------------------------
+  (Path is unconstrained)
+
+
+
+****************************************
+Report : global_timing
+	-format { narrow }
+Design : RS_Top
+Version: R-2020.09-SP1
+Date   : Mon Apr 26 17:25:33 2021
+****************************************
+
+No setup violations found.
+
+No hold violations found.
+
+

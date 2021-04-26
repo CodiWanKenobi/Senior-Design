@@ -1,28 +1,28 @@
 ****************************************
 Report : area
-Design : RS_Encoder_Optimized
+Design : RS_Top
 Version: R-2020.09-SP1
-Date   : Mon Apr 26 17:23:30 2021
+Date   : Mon Apr 26 18:13:24 2021
 ****************************************
 
 Library(s) Used:
 
     gscl45nm (File: /usr/local/packages/cadence_2007/FreePDK45/osu_soc/lib/files/gscl45nm.db)
 
-Number of ports:                          104
-Number of nets:                           284
-Number of cells:                          240
-Number of combinational cells:            240
+Number of ports:                          149
+Number of nets:                          4051
+Number of cells:                         3856
+Number of combinational cells:           3856
 Number of sequential cells:                 0
 Number of macros/black boxes:               0
-Number of buf/inv:                         89
-Number of references:                       6
+Number of buf/inv:                       1298
+Number of references:                      18
 
-Combinational area:                835.354006
-Buf/Inv area:                      145.952297
+Combinational area:              10044.427787
+Buf/Inv area:                     1994.524959
 Noncombinational area:               0.000000
 Macro/Black Box area:                0.000000
 Net Interconnect area:      undefined  (No wire load specified)
 
-Total cell area:                   835.354006
+Total cell area:                 10044.427787
 Total area:                 undefined
