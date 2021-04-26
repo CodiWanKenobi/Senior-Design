@@ -13,6 +13,9 @@ class RS:
         self.N = int((messageSize + redudantSize) / symbolSize)
         self.K = int(messageSize / symbolSize)
         self.field = GF(symbolSize)
+        alpha = [1, 2, 4, 8, 3, 6, 12, 11, 5, 10, 7, 14, 15, 13, 9]
+        omega = [1, 2, 4, 8, 3, 6, 12, 11, 5, 10, 7, 14, 15, 13, 9]
+        self.matrix = self.create_matrix(alpha, omega)
         #Code below creates the generator polynomial (can be hardcoded in final schematic)
         self.genpoly = [1]
         for i in range(0, self.N-self.K):
@@ -70,16 +73,16 @@ class RS:
             # Step 1:
             # NOTE: in comments, "polynomial_n" represents the nth degree of that polynomial
             # next lambda = gamma * lambda(x) - delta_0 * b(x) * x (where we remove highest degree of b) 
-            lambda_1 = self.field.poly_add(self.field.poly_scale(lambda_0, gamma_0), self.field.poly_scale(b_0[1:] + [0], delta_0[s-1]))
+            lambda_1 = self.field.poly_add(self.field.poly_scale(lambda_0, gamma_0), self.field.poly_scale(b_0[1:] + [0], delta_0[-1]))
 
             # next delta = gamma * (delta(x) / x) - delta_0 * theta(x)
-            delta_1 =self.field.poly_add(self.field.poly_scale([0] + delta_0[0:s-1], gamma_0), self.field.poly_scale(theta_0, delta_0[s-1]))
+            delta_1 =self.field.poly_add(self.field.poly_scale([0] + delta_0[:-1], gamma_0), self.field.poly_scale(theta_0, delta_0[-1]))
 
             # Step 2: 
             if (delta_0[s-1] != 0) and (k_0 >= 0):
                 b_1 = lambda_0 # next b(x) = lambda(x)
-                theta_1 = [0] + delta_0[0:s-1] # next theta(x) = delta(x) / x
-                gamma_1 = delta_0[s-1] # next gamma = delta_0
+                theta_1 = [0] + delta_0[:-1] # next theta(x) = delta(x) / x
+                gamma_1 = delta_0[-1] # next gamma = delta_0
                 k_1 = -k_0 - 1 # next k = -(k+1)
             else:
                 b_1 = b_0[1:] + [0] # next b(x) = b(x) * x
@@ -96,7 +99,7 @@ class RS:
             gamma_0 = gamma_1
             k_0 = k_1
 
-        return [lambda_0, delta_0[s-2:]]
+        return [lambda_0, delta_0[-2:]]
 
 
             
@@ -113,6 +116,10 @@ class RS:
     def encode(self, msg_in):
         if len(msg_in) != self.K:
             raise ValueError("Message is not equal to %d symbols" % self.K)
+        
+        parity = self.find_parity(self.matrix, msg_in)
+        return msg_in + parity[::-1]
+        
         msg_out = [0] * self.N
         msg_out[:len(msg_in)] = msg_in
         print("Generator Polynomial: ", self.genpoly)
@@ -185,6 +192,7 @@ class RS:
         print("Omega: ", omega)
 
         Y = [0] * len(msg) # list to hold the error magnitude at each position
+        newY = [0] * len(msg)
 
         # Calculate Formal Derivative (this step is holding it back from scaling to symbol size >4)
         if(len(Lambda) == 3):
@@ -193,16 +201,77 @@ class RS:
         elif (len(Lambda) == 2):
             Lambda_prime = Lambda[0]
         # Now find the error magnititudes -> Yi = Xi * Omega(Xi^-1)  / Lambda_prime
+        # Yi = Xi^(-3) * new_omega(xi^-1) / Lamda_prime
         for Xi in X:
             degree = len(msg)-Xi-1
             Xi_inverse = self.field.inverse(self.field.pow(2, degree))
             numerator = self.field.multiply(self.field.pow(2, degree), self.field.poly_evaluate(omega, Xi_inverse))
             Y[Xi] = self.field.divide(numerator, Lambda_prime)
+
+            numerator2 = self.field.multiply(self.field.pow(Xi_inverse, 3), self.field.poly_evaluate(newO, Xi_inverse))
+            newY[Xi] = self.field.divide(numerator2, Lambda_prime)
         print("Y: ", Y) #debug line
+        print("New Y: ", newY)
 
         # STEP 6: Fix those damn errors!
         # Final step thank god
-        msg_out = self.field.poly_add(msg, Y)
+        msg_out = self.field.poly_add(msg, newY)
 
         return msg_out[:self.K]
+
+    def create_matrix(self, alpha, omega):
+        if len(alpha) != len(omega):
+            return []
+        x = alpha[:self.K]
+        y = alpha[self.K:]
+        
+        C = [0] * self.K
+        for i in range(0, self.K):
+            inverse = self.field.inverse(omega[i])
+            denominator = 1
+            for t in range(0, self.K):
+                if t == i:
+                    continue
+                denominator = self.field.multiply(denominator, alpha[i] ^ alpha[t])
+            C[i] = self.field.divide(inverse, denominator)
+        
+        D = [0] * (self.N-self.K)
+        for j in range (0, len(D)):
+            p = 1
+            for t in range(0, self.K):
+                p = self.field.multiply(p, alpha[j+self.K] ^ alpha[t])
+            D[j] = self.field.multiply(omega[j+self.K], p)
+
+        M = [[0 for c in range(self.N-self.K)] for r in range(self.K)]
+        for r in range(0, self.K):
+            for c in range(0, self.N-self.K):
+                M[r][c] = self.field.divide(self.field.multiply(D[c], C[r]), x[r] ^ y[c])
+
+        return M
+
+    def print_matrix(self, m):
+        for x in range(0,self.K):
+            print(m[x])
+
+    def find_parity(self, m, msg):
+        parity = [0,0,0,0]
+        for i in range(0, 4):
+            for j in range(0, len(msg)):
+                parity[i] ^= self.field.multiply(msg[j], m[-(j+1)][i])
+        return parity
+
+#MessageSize = 44 #message size in bits
+#RedunantSize = 16 #redudant ECC bits
+#SymbolSize = 4 #Size (in bits) of each symbol
+
+#rs = RS(MessageSize, RedunantSize, SymbolSize)
+
+#alpha = [1, 2, 4, 8, 3, 6, 12, 11, 5, 10, 7, 14, 15, 13, 9]
+#omega = [1, 2, 4, 8, 3, 6, 12, 11, 5, 10, 7, 14, 15, 13, 9]
+
+#m = rs.create_matrix(alpha, omega)
+#rs.print_matrix(m)
+#msg = [0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb]
+#print(rs.find_parity(m, msg))
+#rs.print_matrix(m)
 
