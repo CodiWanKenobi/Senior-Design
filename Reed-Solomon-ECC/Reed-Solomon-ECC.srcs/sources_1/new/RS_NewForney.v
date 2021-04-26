@@ -24,19 +24,13 @@ module RS_NewForney(
     input [0:11] lambda,
     input [0:7] omega,
     input [0:14] X,
-    output [0:59] Y,
-    output [0:7] pow,
-    output [0:11] position,
-    output [0:15] Xi_inverse,
-    output [0:15] Xi_0,
-    output [0:15] Xi_1
+    output [0:59] Y
     );
     
-    //Note: Lambda prime is just the first degree term of lambda (lambda[4:7])
-    wire [0:7] power;
+    wire [0:7]  power;
     wire [0:15] Xi_inv;
-    wire [0:59] Ybuf1, Ybuf2;
     wire [0:11] pos;
+    wire [0:59] Ybuf1, Ybuf2;
     
     wire [0:7]  omegaEval;
     wire [0:7]  numerator;
@@ -263,13 +257,8 @@ module RS_NewForney(
         .Xi_inv_out(Xi_inv)
     );
     
-    assign pow = power;
-    assign position = pos;
-    assign Xi_inverse = Xi_inv;
     assign Ybuf1 = {magnitude[0:3], 56'h0};
     assign Ybuf2 = {magnitude[4:7], 56'h0};
-    assign Xi_0 = Xi_invs[0];
-    assign Xi_1 = Xi_invs[3];
     assign Y = (Ybuf1 >> pos[0:5]) | (Ybuf2 >> pos[6:11]);
 endmodule
 
