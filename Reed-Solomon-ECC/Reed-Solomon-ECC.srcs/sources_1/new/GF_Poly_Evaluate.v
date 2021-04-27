@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 //Evalute a polynomial with 2 coefficients
+//And last coefficient is a 1
 module GF_Poly_Evaluate2(
     input [0:7] coef,
     input [0:7] values,
@@ -28,13 +29,12 @@ module GF_Poly_Evaluate2(
     
     wire [0:3]m0;
     GF_Multiply mult0(coef[0:3],values[0:3],m0);
-    wire [0:3]m1;
-    GF_Multiply mult1(coef[4:7],values[4:7],m1);
-    assign out = m0 ^ m1;    
+    assign out = m0 ^ coef[4:7];    
 
 endmodule
 
 //Evaluate a polynomial with 3 coefficients
+//And last coefficient is a 1
 module GF_Poly_Evaluate3(
     input [0:11] coef,
     input [0:11] values,
@@ -45,9 +45,7 @@ module GF_Poly_Evaluate3(
     GF_Multiply mult0(coef[0:3],values[0:3],m0);
     wire [0:3]m1;
     GF_Multiply mult1(coef[4:7],values[4:7],m1);
-    wire [0:3]m2;
-    GF_Multiply mult2(coef[8:11],values[8:11],m2);
-    assign out = m0 ^ m1 ^ m2;    
+    assign out = m0 ^ m1 ^ coef[8:11];    
 
 endmodule
 
@@ -86,6 +84,7 @@ module GF_Poly_Evaluate11(
     
 endmodule
 //Evaluates Polynomial with 15 coefficients
+//And last coefficient is a 1
 module GF_Poly_Evaluate(
     input [0:59] coef,
     input [0:59] values,
@@ -120,9 +119,7 @@ module GF_Poly_Evaluate(
     GF_Multiply multC(coef[48:51],values[48:51],mC);
     wire [0:3]mD;
     GF_Multiply multD(coef[52:55],values[52:55],mD);
-    wire [0:3]mE;
-    GF_Multiply multE(coef[56:59],values[56:59],mE);
     
-    assign out = m0 ^ m1 ^ m2 ^ m3 ^ m4 ^ m5 ^ m6 ^ m7 ^ m8 ^ m9 ^ mA ^ mB ^ mC ^ mD ^ mE;
+    assign out = m0 ^ m1 ^ m2 ^ m3 ^ m4 ^ m5 ^ m6 ^ m7 ^ m8 ^ m9 ^ mA ^ mB ^ mC ^ mD ^ coef[56:59];
     
 endmodule
