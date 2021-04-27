@@ -34,6 +34,7 @@ module tb_System_FromFile();
     
         
     integer outFile,inFile;
+    integer i = 0;
 
     initial begin
         outFile = $fopen("C:\\Mihir\\out.txt", "w"); //change path to where you want output file 
@@ -47,6 +48,8 @@ module tb_System_FromFile();
             #50
             modified_data = encoded_data ^ error_mask;
             #50;
+            i = i + 1;
+            $fwrite(outFile, "Testcase %d\n", i);
             $fwrite(outFile, "Input data: %h\n", in_data);   //write data 
             $fwrite(outFile, "Encoded data: %h\n", encoded_data);   //write data 
             $fwrite(outFile, "Error mask: %h\n", error_mask);   //write data 
@@ -57,6 +60,7 @@ module tb_System_FromFile();
             else begin
                 $fwrite(outFile, "Failure\n");   //write data 
             end
+            $fwrite(outFile, "\n");
             //$fflush(outFile);
             
             #50;
