@@ -27,7 +27,7 @@ module tb_GF_Multiply();
     
     wire [0:3] out;
     
-    GF_Multiply uut(
+    GF_NewMultiply uut(
         .A(A),
         .B(B),
         .out(out)
@@ -75,5 +75,17 @@ module tb_GF_Multiply();
         #50;
         $display("TC06");
         if(out != 4'h1) $display ("Result is wrong.");
+        
+        A = 4'hB;
+        B = 4'h9;
+        #50;
+        $display("TC07");
+        if(out != 4'hC) $display ("Result is wrong.");
+        
+         A = 4'hF;
+        B = 4'hD;
+        #50;
+        $display("TC08");
+        if(out != 4'h7) $display ("Result is wrong.");
     end
 endmodule
