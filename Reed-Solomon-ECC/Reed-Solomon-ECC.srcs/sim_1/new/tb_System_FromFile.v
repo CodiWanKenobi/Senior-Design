@@ -50,7 +50,7 @@ module tb_System_FromFile();
             $fdisplay(outFile, "Encoded data: %h", encoded_data);   //write data 
             $fdisplay(outFile, "Error mask: %h", error_mask);   //write data 
             $fdisplay(outFile, "Corrected data: %h", out_data);   //write data 
-            if (in_data == out_data ? 1'b1 : ~valid) begin
+            if (in_data == out_data ? valid : ~valid) begin
                 $fdisplay(outFile, "Success\n");   //write data 
             end else begin
                 $fdisplay(outFile, "Failure\n");   //write data 
