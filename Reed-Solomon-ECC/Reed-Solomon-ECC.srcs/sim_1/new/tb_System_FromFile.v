@@ -32,11 +32,12 @@ module tb_System_FromFile();
     RS_Encoder rse(in_data,encoded_data);
     RS_Decoder rsd(modified_data,out_data,valid);
     
+        
     integer outFile,inFile;
 
     initial begin
-        outFile = $fopen("Output_Data.txt", "w"); //open file for outputting results to
-        inFile = $fopen("RS_Input.txt", "r");
+        outFile = $fopen("C:\\Mihir\\out.txt", "w"); //change path to where you want output file 
+        inFile = $fopen("data.txt", "r");
         
         while (! $feof(inFile)) begin           //run until reaching end of file
             $fscanf(inFile, "%h", in_data);  //read in a line of the text file
@@ -46,18 +47,23 @@ module tb_System_FromFile();
             #50
             modified_data = encoded_data ^ error_mask;
             #50;
-            $fdisplay(outFile, "Input data: %h", in_data);   //write data 
-            $fdisplay(outFile, "Encoded data: %h", encoded_data);   //write data 
-            $fdisplay(outFile, "Error mask: %h", error_mask);   //write data 
-            $fdisplay(outFile, "Corrected data: %h", out_data);   //write data 
+            $fwrite(outFile, "Input data: %h\n", in_data);   //write data 
+            $fwrite(outFile, "Encoded data: %h\n", encoded_data);   //write data 
+            $fwrite(outFile, "Error mask: %h\n", error_mask);   //write data 
+            $fwrite(outFile, "Corrected data: %h\n", out_data);   //write data 
             if (in_data == out_data ? valid : ~valid) begin
-                $fdisplay(outFile, "Success\n");   //write data 
-            end else begin
-                $fdisplay(outFile, "Failure\n");   //write data 
+                $fwrite(outFile, "Success\n");   //write data 
+            end 
+            else begin
+                $fwrite(outFile, "Failure\n");   //write data 
             end
-            $fflush(outFile);
+            //$fflush(outFile);
+            
             #50;
         end
+        $fclose(outFile);
+        #50;
+        $finish;
         
     end
 endmodule
