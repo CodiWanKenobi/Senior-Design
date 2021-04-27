@@ -2,28 +2,27 @@
 Report : area
 Design : RS_Decoder
 Version: R-2020.09-SP1
-Date   : Mon Apr 26 19:32:00 2021
+Date   : Tue Apr 27 14:17:58 2021
 ****************************************
 
-Information: Updating design information... (UID-85)
 Library(s) Used:
 
     gscl45nm (File: /usr/local/packages/cadence_2007/FreePDK45/osu_soc/lib/files/gscl45nm.db)
 
 Number of ports:                          105
-Number of nets:                          3935
-Number of cells:                         3748
-Number of combinational cells:           3748
+Number of nets:                          7043
+Number of cells:                         6983
+Number of combinational cells:           6983
 Number of sequential cells:                 0
 Number of macros/black boxes:               0
-Number of buf/inv:                       1258
-Number of references:                      18
+Number of buf/inv:                       1835
+Number of references:                      17
 
-Combinational area:               9965.585402
-Buf/Inv area:                     1964.489758
+Combinational area:              17897.693889
+Buf/Inv area:                     2667.970451
 Noncombinational area:               0.000000
 Macro/Black Box area:                0.000000
 Net Interconnect area:      undefined  (No wire load specified)
 
-Total cell area:                  9965.585402
+Total cell area:                 17897.693889
 Total area:                 undefined

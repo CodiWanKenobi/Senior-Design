@@ -6,32 +6,33 @@ Report : timing
         -sort_by group
 Design : RS_Encoder_Optimized
 Version: R-2020.09-SP1
-Date   : Mon Apr 26 17:23:25 2021
+Date   : Tue Apr 27 14:21:48 2021
 ****************************************
 
 Operating Conditions: typical   Library: gscl45nm
 Wire Load Model Mode: top
 
-  Startpoint: in[8] (input port)
-  Endpoint: out[48] (output port)
+  Startpoint: in[2] (input port)
+  Endpoint: out[55] (output port)
   Path Group: (none)
   Path Type: max
 
   Point                                    Incr       Path
   -----------------------------------------------------------
   input external delay                     0.00       0.00 r
-  in[8] (in)                               0.00       0.00 r
-  U290/Y (INVX1)                           0.02       0.02 f
-  U316/Y (AOI22X1)                         0.04       0.06 r
-  U252/Y (BUFX2)                           0.05       0.11 r
-  U317/Y (MUX2X1)                          0.07       0.18 r
-  U318/Y (MUX2X1)                          0.10       0.28 r
-  U319/Y (MUX2X1)                          0.12       0.40 r
-  U325/YS (FAX1)                           0.11       0.51 r
-  U326/YS (FAX1)                           0.08       0.60 f
-  U327/Y (MUX2X1)                          0.03       0.63 r
-  out[48] (out)                            0.00       0.63 r
-  data arrival time                                   0.63
+  in[2] (in)                               0.00       0.00 r
+  U521/Y (INVX1)                           0.03       0.03 f
+  U523/Y (AOI22X1)                         0.04       0.06 r
+  U480/Y (BUFX2)                           0.05       0.11 r
+  U588/Y (MUX2X1)                          0.08       0.19 r
+  U648/Y (INVX1)                           0.04       0.23 f
+  U651/Y (MUX2X1)                          0.06       0.30 r
+  U670/Y (MUX2X1)                          0.05       0.35 r
+  U671/Y (MUX2X1)                          0.09       0.44 r
+  U672/YS (HAX1)                           0.08       0.52 r
+  U673/YS (FAX1)                           0.08       0.60 f
+  out[55] (out)                            0.00       0.60 f
+  data arrival time                                   0.60
   -----------------------------------------------------------
   (Path is unconstrained)
 

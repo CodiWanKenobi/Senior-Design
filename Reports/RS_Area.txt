@@ -2,27 +2,27 @@
 Report : area
 Design : RS_Top
 Version: R-2020.09-SP1
-Date   : Mon Apr 26 18:13:24 2021
+Date   : Tue Apr 27 14:10:43 2021
 ****************************************
 
 Library(s) Used:
 
     gscl45nm (File: /usr/local/packages/cadence_2007/FreePDK45/osu_soc/lib/files/gscl45nm.db)
 
-Number of ports:                          149
-Number of nets:                          4051
-Number of cells:                         3856
-Number of combinational cells:           3856
+Number of ports:                          254
+Number of nets:                          7217
+Number of cells:                         7009
+Number of combinational cells:           7008
 Number of sequential cells:                 0
 Number of macros/black boxes:               0
-Number of buf/inv:                       1298
-Number of references:                      18
+Number of buf/inv:                       1994
+Number of references:                       8
 
-Combinational area:              10044.427787
-Buf/Inv area:                     1994.524959
+Combinational area:              18292.375204
+Buf/Inv area:                     2919.045945
 Noncombinational area:               0.000000
 Macro/Black Box area:                0.000000
 Net Interconnect area:      undefined  (No wire load specified)
 
-Total cell area:                 10044.427787
+Total cell area:                 18292.375204
 Total area:                 undefined
