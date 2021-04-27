@@ -1,9 +1,9 @@
 ****************************************
 Report : power
-        -analysis_effort high
+        -analysis_effort low
 Design : RS_Decoder
 Version: R-2020.09-SP1
-Date   : Mon Apr 26 17:17:14 2021
+Date   : Mon Apr 26 19:32:46 2021
 ****************************************
 
 
@@ -25,12 +25,12 @@ Power-specific unit information :
     Leakage Power Units = 1nW
 
 
-  Cell Internal Power  =   9.3997 mW   (49%)
-  Net Switching Power  =   9.6930 mW   (51%)
+  Cell Internal Power  =   9.5365 mW   (49%)
+  Net Switching Power  =   9.7600 mW   (51%)
                          ---------
-Total Dynamic Power    =  19.0928 mW  (100%)
+Total Dynamic Power    =  19.2965 mW  (100%)
 
-Cell Leakage Power     =  38.7151 uW
+Cell Leakage Power     =  38.1221 uW
 
 Information: report_power power group summary does not include estimated clock tree power. (PWR-789)
 
@@ -43,6 +43,6 @@ black_box          0.0000            0.0000            0.0000            0.0000 
 clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)
 register           0.0000            0.0000            0.0000            0.0000  (   0.00%)
 sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
-combinational      9.3997            9.6930        3.8715e+04           19.1314  ( 100.00%)
+combinational      9.5366            9.7600        3.8122e+04           19.3346  ( 100.00%)
 --------------------------------------------------------------------------------------------------
-Total              9.3997 mW         9.6930 mW     3.8715e+04 nW        19.1314 mW
+Total              9.5366 mW         9.7600 mW     3.8122e+04 nW        19.3346 mW
