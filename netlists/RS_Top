@@ -17,8 +17,6 @@ module tb_System_FromFile();
         while (! $feof(inFile)) begin           //run until reaching end of file
             $fscanf(inFile, "%h", in_data);  //read in a line of the text file
             $fscanf(inFile, "%h", error_mask);  //read in a line of the text file
-//            $ferror(inFile,str);
-//            $display("%s",str);
             #50
             $fdisplay(outFile, "Input data: %h", in_data);   //write data 
             $fdisplay(outFile, "Error mask: %h", error_mask);   //write data 
@@ -42,12 +40,12 @@ module RS_Top (in, mask, out, valid);
    
    wire [0:59] encoded;
    wire [0:59] masked;
-   RS_Encoder_Optimized enc(in, encoded);
+   RS_Encoder enc(in, encoded);
    assign masked = encoded ^ mask;
    RS_Decoder dec(masked, out, valid);
 endmodule
 
-module RS_Encoder_Optimized ( in, out );
+module RS_Encoder ( in, out );
   input [0:43] in;
   output [0:59] out;
   wire   n661, n662, n663, n664, n665, n666, n667, n668, n669, n670, n671,
