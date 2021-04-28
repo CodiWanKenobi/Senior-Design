@@ -23,11 +23,9 @@
 module tb_RS_Decoder();
 
     reg [0:59] msg_in;
-    wire [0:11] lambda;
-    wire [0:59] Y;
     wire [0:43] msg_out;
     wire valid;
-    RS_Decoder decode(msg_in, lambda, Y, msg_out, valid);
+    RS_Decoder decode(msg_in, msg_out, valid);
     
     initial begin
         msg_in = 60'h123456789AB33cc;

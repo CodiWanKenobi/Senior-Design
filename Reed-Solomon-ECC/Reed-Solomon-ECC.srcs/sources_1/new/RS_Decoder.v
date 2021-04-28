@@ -22,14 +22,15 @@
 
 module RS_Decoder(
     input  [0:59] msg,
-    output [0:11] lambda,
-    output [0:59] Y,
     output [0:43] decoded,
     output valid
     );
+    
+    wire [0:59] buffer;
+    wire [0:59] Y;
     wire [0:15] syndrome, check_syndrome;
     wire [0:14] X;
-    wire [0:59] buffer;
+    wire [0:11] lambda;
     wire [0:7]  omega;
     
     // Generate syndrome for encoded message
