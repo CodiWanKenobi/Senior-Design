@@ -12,7 +12,7 @@ module RS_Debug(
     output [0:59] encoded_data,
     output [0:43] decoded_msg,
     output [0:15] syndrome_out,
-    output valid 
+    output valid
     );
     
     localparam

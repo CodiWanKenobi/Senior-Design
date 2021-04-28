@@ -5,7 +5,7 @@
 // 
 // Create Date: 04/26/2021 09:58:13 PM
 // Design Name: 
-// Module Name: GF_NewMultiply
+// Module Name: GF_Multiply
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 

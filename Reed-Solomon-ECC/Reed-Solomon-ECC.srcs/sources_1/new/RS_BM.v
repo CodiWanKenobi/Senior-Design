@@ -5,7 +5,7 @@
 // 
 // Create Date: 04/25/2021 03:21:57 PM
 // Design Name: 
-// Module Name: RS_BM_Fast
+// Module Name: RS_BM
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 

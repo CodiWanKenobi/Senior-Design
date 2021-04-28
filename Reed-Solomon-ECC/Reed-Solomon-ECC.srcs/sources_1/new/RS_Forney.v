@@ -5,7 +5,7 @@
 // 
 // Create Date: 03/28/2021 12:39:34 PM
 // Design Name: 
-// Module Name: RS_NewForney
+// Module Name: RS_Forney
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 

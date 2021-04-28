@@ -5,7 +5,7 @@
 // 
 // Create Date: 04/26/2021 01:51:36 PM
 // Design Name: 
-// Module Name: RS_Encoder_Optimized
+// Module Name: RS_Encoder
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
