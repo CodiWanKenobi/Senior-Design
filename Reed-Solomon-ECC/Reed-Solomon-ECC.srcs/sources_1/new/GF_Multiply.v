@@ -30,7 +30,6 @@ module GF_Multiply(
     assign combined = (A << 4) | B;
     always @(*) begin    
         case(combined)
-
 			8'b00010001: out = 4'b0001;
 			8'b00010010: out = 4'b0010;
 			8'b00010011: out = 4'b0011;
@@ -258,29 +257,7 @@ module GF_Multiply(
 			8'b11111111: out = 4'b1010;
 			
 			default: out = 4'b0000;
-
         endcase   
 	end
     
-endmodule
-
-module GF_OldMultiply(
-    input [0:3] A,
-    input [0:3] B,
-    output [0:3] out
-    );
-   
-    wire [0:3]logA;
-    wire [0:3]logB;
-    GF_log_table log1(A[0:3], logA);
-    GF_log_table log2(B[0:3], logB);
-    
-    wire [0:4] added;
-    wire [0:3] product;
-    
-    assign added = logA + logB;
-    
-    GF_exp_table exp1(added,product);
-    
-    assign out = product & {4{(|A) & (|B)}};
 endmodule

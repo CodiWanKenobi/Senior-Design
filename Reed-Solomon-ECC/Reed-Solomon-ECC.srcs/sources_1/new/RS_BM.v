@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module RS_BM_Fast(
+module RS_BM(
     input [0:15] syndrome,
     output [0:11] lambda4,
     output [0:7] omegaH

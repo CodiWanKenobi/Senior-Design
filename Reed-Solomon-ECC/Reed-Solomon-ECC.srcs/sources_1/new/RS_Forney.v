@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module RS_NewForney(
+module RS_Forney(
     input [0:11] lambda,
     input [0:7] omega,
     input [0:14] X,
@@ -46,8 +46,8 @@ module RS_NewForney(
     GF_Multiply m0(numerator[0:3], omegaEval[0:3], magnitude[0:3]);
     GF_Multiply m1(numerator[4:7], omegaEval[4:7], magnitude[4:7]);  
 
-    GF_FastDivide d0(power[0:3], lambda[4:7], numerator[0:3]);
-    GF_FastDivide d1(power[4:7], lambda[4:7], numerator[4:7]);
+    GF_Divide d0(power[0:3], lambda[4:7], numerator[0:3]);
+    GF_Divide d1(power[4:7], lambda[4:7], numerator[4:7]);
     
     RS_ForneyModule x0(
         .X(X[0]),

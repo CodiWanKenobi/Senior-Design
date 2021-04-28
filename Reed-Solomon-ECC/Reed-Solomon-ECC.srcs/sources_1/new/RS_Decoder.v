@@ -22,24 +22,34 @@
 
 module RS_Decoder(
     input  [0:59] msg,
+    output [0:11] lambda,
+    output [0:59] Y,
     output [0:43] decoded,
     output valid
     );
-    wire [0:15] syndrome, syn2;
+    wire [0:15] syndrome, check_syndrome;
     wire [0:14] X;
-    wire [0:59] Y;
     wire [0:59] buffer;
-    wire [0:11] lambda;
     wire [0:7]  omega;
     
+    // Generate syndrome for encoded message
     RS_Syndrome syn(msg, syndrome);
-    RS_BM_Fast lamb(syndrome, lambda, omega);
+    
+    // Generate error locator polynomial
+    RS_BM lamb(syndrome, lambda, omega);
+    
+    // Find roots of error locator polynomial
     RS_ChienSearch chien(lambda, X);
-    //RS_CalcOmega omeg(syndrome, lambda, omega);
-    RS_NewForney forney(lambda, omega, X, Y);
+    
+    // Calculate error values
+    RS_Forney forney(lambda, omega, X, Y);
+    
+    // Correct errors
     GF_PolyAdd #(60) padd(msg, Y, buffer);
-    RS_Syndrome check(buffer, syn2);
+    
+    // Generate syndrome for output to check if message was properly corrected
+    RS_Syndrome check(buffer, check_syndrome);
     
     assign decoded = (|syndrome) ? buffer[0:43] : msg[0:43];
-    assign valid = (|syndrome) ? ~(|syn2) : 1'b1;
+    assign valid = (|syndrome) ? ~(|check_syndrome) : 1'b1;
 endmodule

@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 03/04/2021 12:05:10 AM
+// Create Date: 04/26/2021 01:51:36 PM
 // Design Name: 
-// Module Name: RS_Encoder
+// Module Name: RS_Encoder_Optimized
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -25,10 +25,20 @@ module RS_Encoder(
     output [0:59] out
     );
     
-    // Code generating polynomial: g(x) = x^4 + 15x^3 + 3x^2 + x + 12 -> {1,15,3,1,12}
-    wire [0:15] R;
-    RS_Poly_Divide_CGP remainder(in, R);
+    // these values are determined from creating cauchy matrix with 
+    // alpha = omega = [2^0, 2^1, 2^2, ..., 2^14]
+    wire [0:43] p0, p1, p2, p3;
+    wire [0:3] s0, s1, s2, s3;
+    assign p0 = 44'hA53AD3F368C;
+    assign p1 = 44'hD77582FB131;
+    assign p2 = 44'hCB13CBC5B33;
+    assign p3 = 44'hA84D8BDCD9F;
     
-    assign out = {in, R};
+    GF_Poly_Evaluate11 pe0 (in, p0, s0);
+    GF_Poly_Evaluate11 pe1 (in, p1, s1);
+    GF_Poly_Evaluate11 pe2 (in, p2, s2);
+    GF_Poly_Evaluate11 pe3 (in, p3, s3);
+    
+    assign out = {in, s3, s2, s1, s0};
     
 endmodule

@@ -27,7 +27,7 @@ module tb_GF_Multiply();
     
     wire [0:3] out;
     
-    GF_NewMultiply uut(
+    GF_Multiply uut(
         .A(A),
         .B(B),
         .out(out)
