@@ -52,8 +52,15 @@ module tb_System_FromFile();
     wire [0:43] data_out;
     wire [0:15] syndrome_out;
     wire valid;
-    
-    RS_Debug sut(test_mode, data_in, encoded_in, error_mask, encoded_out, data_out, syndrome_out, valid);
+        
+    RS_Debug sut(.test_mode(test_mode), 
+                 .msg_in(data_in), 
+                 .encoded_in(encoded_in), 
+                 .error_mask(error_mask), 
+                 .encoded_data(encoded_out), 
+                 .decoded_msg(data_out), 
+                 .syndrome_out(syndrome_out), 
+                 .valid(valid));
     
         
     integer outFile,inFile,tc;
@@ -67,9 +74,7 @@ module tb_System_FromFile();
         error_mask = 0;
         outFile = $fopen("Output_Data.txt", "w"); // Change path to where you want output file 
         inFile = $fopen("RS_Input.txt", "r");
-        #50;
         $fscanf(inFile, "%b", test_mode);
-        #50;
         while (! $feof(inFile)) begin           //run until reaching end of file
             $fwrite(outFile, "Test Case %0d:\n", tc);
             case (test_mode)
@@ -119,6 +124,5 @@ module tb_System_FromFile();
         $fclose(outFile);
         #50;
         $finish;
-        
     end
 endmodule

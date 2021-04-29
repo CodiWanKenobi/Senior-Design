@@ -23,7 +23,6 @@ module RS_Debug(
     wire [0:59] enc_out;
     wire [0:59] Y;
     wire [0:59] buffer;
-    wire [0:59] orig_msg;
     wire [0:15] check_syndrome;
     wire [0:14] X;
     wire [0:11] lambda;
@@ -44,6 +43,6 @@ module RS_Debug(
     RS_Syndrome check(buffer, check_syndrome);
     
     assign orig_msg = (|test_mode) ? encoded_in : msg_in;
-    assign decoded_msg = (|syndrome_out) ? orig_msg[0:43] : buffer[0:43];
+    assign decoded_msg = (|syndrome_out) ? buffer[0:43] : encoded_data[0:43];
     assign valid = (|syndrome_out) ? ~(|check_syndrome) : 1'b1;
 endmodule
