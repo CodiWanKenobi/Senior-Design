@@ -51,7 +51,7 @@ module RS_BM(
     
     //Step 0.2
     // check = delta[12:15] != 0 && k >= 0
-    assign check0 = delta0[12] | delta0[13] | delta0[14] | delta0[15];
+    assign check0 = |delta0[12:15];
     assign b1 = check0 ? lambda0 : b0 << 4;
     assign theta1 = check0 ? delta0 >> 4 : theta0;
     assign gamma1 = check0 ? delta0[12:15] : gamma0;
@@ -67,7 +67,7 @@ module RS_BM(
     GF_PolyAdd #(16) padd_d2 (ds1, ts1, delta2);
     
     //Step 1.2
-    assign check1 = delta1[12] | delta1[13] | delta1[14] | delta1[15] & !k1[15];
+    assign check1 = (|delta1[12:15]) & !k1[15];
     assign b2 = check1 ? lambda1 : b1 << 4;
     assign theta2 = check1 ? delta1 >> 4 : theta1;
     assign gamma2 = check1 ? delta1[12:15] : gamma1;
@@ -83,7 +83,7 @@ module RS_BM(
     GF_PolyAdd #(16) padd_d3 (ds2, ts2, delta3);
     
     //Step 2.2
-    assign check2 = delta2[12] | delta2[13] | delta2[14] | delta2[15] & !k2[15];
+    assign check2 = (|delta2[12:15]) & !k2[15];
     assign b3 = check2 ? lambda2 : b2 << 4;
     assign theta3 = check2 ? delta2 >> 4 : theta2;
     assign gamma3 = check2 ? delta2[12:15] : gamma2;
