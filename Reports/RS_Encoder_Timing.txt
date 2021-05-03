@@ -4,35 +4,36 @@ Report : timing
         -delay max
         -max_paths 1
         -sort_by group
-Design : RS_Encoder_Optimized
+Design : RS_Encoder
 Version: R-2020.09-SP1
-Date   : Tue Apr 27 14:21:48 2021
+Date   : Mon May  3 11:06:31 2021
 ****************************************
 
 Operating Conditions: typical   Library: gscl45nm
 Wire Load Model Mode: top
 
-  Startpoint: in[2] (input port)
-  Endpoint: out[55] (output port)
+  Startpoint: in[0] (input port)
+  Endpoint: out[50] (output port)
   Path Group: (none)
   Path Type: max
 
   Point                                    Incr       Path
   -----------------------------------------------------------
   input external delay                     0.00       0.00 r
-  in[2] (in)                               0.00       0.00 r
-  U521/Y (INVX1)                           0.03       0.03 f
-  U523/Y (AOI22X1)                         0.04       0.06 r
-  U480/Y (BUFX2)                           0.05       0.11 r
-  U588/Y (MUX2X1)                          0.08       0.19 r
-  U648/Y (INVX1)                           0.04       0.23 f
-  U651/Y (MUX2X1)                          0.06       0.30 r
-  U670/Y (MUX2X1)                          0.05       0.35 r
-  U671/Y (MUX2X1)                          0.09       0.44 r
-  U672/YS (HAX1)                           0.08       0.52 r
-  U673/YS (FAX1)                           0.08       0.60 f
-  out[55] (out)                            0.00       0.60 f
-  data arrival time                                   0.60
+  in[0] (in)                               0.00       0.00 r
+  U335/Y (INVX1)                           0.03       0.03 f
+  U343/Y (AOI22X1)                         0.04       0.06 r
+  U254/Y (BUFX2)                           0.05       0.11 r
+  U344/Y (MUX2X1)                          0.07       0.19 r
+  U345/Y (INVX1)                           0.04       0.23 f
+  U346/Y (MUX2X1)                          0.10       0.33 r
+  U380/Y (INVX1)                           0.05       0.38 f
+  U383/Y (MUX2X1)                          0.05       0.44 r
+  U384/Y (MUX2X1)                          0.07       0.50 r
+  U385/YS (FAX1)                           0.09       0.59 f
+  U386/Y (MUX2X1)                          0.03       0.62 r
+  out[50] (out)                            0.00       0.62 r
+  data arrival time                                   0.62
   -----------------------------------------------------------
   (Path is unconstrained)
 
