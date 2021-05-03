@@ -75,22 +75,93 @@ module RS_ChienSearch(
     assign n02 = 12'hED1;
     assign n01 = 12'hD91;
     assign n00 = 12'h111;
+
+    wire [0:3]n14_m0;
+    wire [0:3]n14_m1;
+    GF_Multiply_4 mult14_0(lambda[0:3],n14_m0);
+    GF_Multiply_2 mult14_1(lambda[4:7],n14_m1);
+    assign val14 = n14_m0 ^ n14_m1 ^ lambda[8:11];
     
-    GF_Poly_Evaluate3 deg14(lambda, n14, val14);
-    GF_Poly_Evaluate3 deg13(lambda, n13, val13);
-    GF_Poly_Evaluate3 deg12(lambda, n12, val12);
-    GF_Poly_Evaluate3 deg11(lambda, n11, val11);
-    GF_Poly_Evaluate3 deg10(lambda, n10, val10);
-    GF_Poly_Evaluate3 deg09(lambda, n09, val09);
-    GF_Poly_Evaluate3 deg08(lambda, n08, val08);
-    GF_Poly_Evaluate3 deg07(lambda, n07, val07);
-    GF_Poly_Evaluate3 deg06(lambda, n06, val06);
-    GF_Poly_Evaluate3 deg05(lambda, n05, val05);
-    GF_Poly_Evaluate3 deg04(lambda, n04, val04);
-    GF_Poly_Evaluate3 deg03(lambda, n03, val03);
-    GF_Poly_Evaluate3 deg02(lambda, n02, val02);  
-    GF_Poly_Evaluate3 deg01(lambda, n01, val01);
-    GF_Poly_Evaluate3 deg00(lambda, n00, val00);
+
+    wire [0:3]n13_m0;
+    wire [0:3]n13_m1;
+    GF_Multiply_3 mult13_0(lambda[0:3],n13_m0);
+    GF_Multiply_4 mult13_1(lambda[4:7],n13_m1);
+    assign val13 = n13_m0 ^ n13_m1 ^ lambda[8:11];
+    
+    wire [0:3]n12_m0;
+    wire [0:3]n12_m1;
+    GF_Multiply_C mult12_0(lambda[0:3],n12_m0);
+    GF_Multiply_8 mult12_1(lambda[4:7],n12_m1);
+    assign val12 = n12_m0 ^ n12_m1 ^ lambda[8:11];
+        
+    wire [0:3]n11_m0;
+    wire [0:3]n11_m1;
+    GF_Multiply_5 mult11_0(lambda[0:3],n11_m0);
+    GF_Multiply_3 mult11_1(lambda[4:7],n11_m1);
+    assign val11 = n11_m0 ^ n11_m1 ^ lambda[8:11];
+    
+    wire [0:3]n10_m0;
+    wire [0:3]n10_m1;
+    GF_Multiply_7 mult10_0(lambda[0:3],n10_m0);
+    GF_Multiply_6 mult10_1(lambda[4:7],n10_m1);
+    assign val10 = n10_m0 ^ n10_m1 ^ lambda[8:11];
+    
+    wire [0:3]n09_m0;
+    wire [0:3]n09_m1;
+    GF_Multiply_F mult09_0(lambda[0:3],n09_m0);
+    GF_Multiply_C mult09_1(lambda[4:7],n09_m1);
+    assign val09 = n09_m0 ^ n09_m1 ^ lambda[8:11];
+    
+    wire [0:3]n08_m0;
+    wire [0:3]n08_m1;
+    GF_Multiply_9 mult08_0(lambda[0:3],n08_m0);
+    GF_Multiply_B mult08_1(lambda[4:7],n08_m1);
+    assign val08 = n08_m0 ^ n08_m1 ^ lambda[8:11];
+    
+    wire [0:3]n07_m0;
+    wire [0:3]n07_m1;
+    GF_Multiply_2 mult07_0(lambda[0:3],n07_m0);
+    GF_Multiply_5 mult07_1(lambda[4:7],n07_m1);
+    assign val07 = n07_m0 ^ n07_m1 ^ lambda[8:11];
+    
+    wire [0:3]n06_m0;
+    wire [0:3]n06_m1;
+    GF_Multiply_8 mult06_0(lambda[0:3],n06_m0);
+    GF_Multiply_A mult06_1(lambda[4:7],n06_m1);
+    assign val06 = n06_m0 ^ n06_m1 ^ lambda[8:11];
+    
+    wire [0:3]n05_m0;
+    wire [0:3]n05_m1;
+    GF_Multiply_6 mult05_0(lambda[0:3],n05_m0);
+    GF_Multiply_7 mult05_1(lambda[4:7],n05_m1);
+    assign val05 = n05_m0 ^ n05_m1 ^ lambda[8:11];
+    
+    wire [0:3]n04_m0;
+    wire [0:3]n04_m1;
+    GF_Multiply_B mult04_0(lambda[0:3],n04_m0);
+    GF_Multiply_E mult04_1(lambda[4:7],n04_m1);
+    assign val04 = n04_m0 ^ n04_m1 ^ lambda[8:11];
+    
+    wire [0:3]n03_m0;
+    wire [0:3]n03_m1;
+    GF_Multiply_A mult03_0(lambda[0:3],n03_m0);
+    GF_Multiply_F mult03_1(lambda[4:7],n03_m1);
+    assign val03 = n03_m0 ^ n03_m1 ^ lambda[8:11];
+        
+    wire [0:3]n02_m0;
+    wire [0:3]n02_m1;
+    GF_Multiply_E mult02_0(lambda[0:3],n02_m0);
+    GF_Multiply_D mult02_1(lambda[4:7],n02_m1);
+    assign val02 = n02_m0 ^ n02_m1 ^ lambda[8:11];
+
+    wire [0:3]n01_m0;
+    wire [0:3]n01_m1;
+    GF_Multiply_D mult01_0(lambda[0:3],n01_m0);
+    GF_Multiply_9 mult01_1(lambda[4:7],n01_m1);
+    assign val01 = n01_m0 ^ n01_m1 ^ lambda[8:11];
+    
+    assign val00 = lambda[0:3] ^ lambda[4:7] ^ lambda[8:11];
     
     assign X[0] = !(val14[0] | val14[1] | val14[2] | val14[3]);
     assign X[1] = !(val13[0] | val13[1] | val13[2] | val13[3]);

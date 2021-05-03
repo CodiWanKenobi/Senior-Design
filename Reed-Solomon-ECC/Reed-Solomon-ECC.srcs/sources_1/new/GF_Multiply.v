@@ -19,7 +19,6 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module GF_Multiply(
     input [0:3] A,
     input [0:3] B,
@@ -259,5 +258,409 @@ module GF_Multiply(
 			default: out = 4'b0000;
         endcase   
 	end
-    
+endmodule
+
+module GF_Multiply_1(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b0001: out = 4'b0001;
+			4'b0010: out = 4'b0010;
+			4'b0011: out = 4'b0011;
+			4'b0100: out = 4'b0100;
+			4'b0101: out = 4'b0101;
+			4'b0110: out = 4'b0110;
+			4'b0111: out = 4'b0111;
+			4'b1000: out = 4'b1000;
+			4'b1001: out = 4'b1001;
+			4'b1010: out = 4'b1010;
+			4'b1011: out = 4'b1011;
+			4'b1100: out = 4'b1100;
+			4'b1101: out = 4'b1101;
+			4'b1110: out = 4'b1110;
+			4'b1111: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_2(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b1001: out = 4'b0001;
+			4'b0001: out = 4'b0010;
+			4'b1000: out = 4'b0011;
+			4'b0010: out = 4'b0100;
+			4'b1011: out = 4'b0101;
+			4'b0011: out = 4'b0110;
+			4'b1010: out = 4'b0111;
+			4'b0100: out = 4'b1000;
+			4'b1101: out = 4'b1001;
+			4'b0101: out = 4'b1010;
+			4'b1100: out = 4'b1011;
+			4'b0110: out = 4'b1100;
+			4'b1111: out = 4'b1101;
+			4'b0111: out = 4'b1110;
+			4'b1110: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_3(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b1110: out = 4'b0001;
+			4'b1111: out = 4'b0010;
+			4'b0001: out = 4'b0011;
+			4'b1101: out = 4'b0100;
+			4'b0011: out = 4'b0101;
+			4'b0010: out = 4'b0110;
+			4'b1100: out = 4'b0111;
+			4'b1001: out = 4'b1000;
+			4'b0111: out = 4'b1001;
+			4'b0110: out = 4'b1010;
+			4'b1000: out = 4'b1011;
+			4'b0100: out = 4'b1100;
+			4'b1010: out = 4'b1101;
+			4'b1011: out = 4'b1110;
+			4'b0101: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_4(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b1101: out = 4'b0001;
+			4'b1001: out = 4'b0010;
+			4'b0100: out = 4'b0011;
+			4'b0001: out = 4'b0100;
+			4'b1100: out = 4'b0101;
+			4'b1000: out = 4'b0110;
+			4'b0101: out = 4'b0111;
+			4'b0010: out = 4'b1000;
+			4'b1111: out = 4'b1001;
+			4'b1011: out = 4'b1010;
+			4'b0110: out = 4'b1011;
+			4'b0011: out = 4'b1100;
+			4'b1110: out = 4'b1101;
+			4'b1010: out = 4'b1110;
+			4'b0111: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_5(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b1011: out = 4'b0001;
+			4'b0101: out = 4'b0010;
+			4'b1110: out = 4'b0011;
+			4'b1010: out = 4'b0100;
+			4'b0001: out = 4'b0101;
+			4'b1111: out = 4'b0110;
+			4'b0100: out = 4'b0111;
+			4'b0111: out = 4'b1000;
+			4'b1100: out = 4'b1001;
+			4'b0010: out = 4'b1010;
+			4'b1001: out = 4'b1011;
+			4'b1101: out = 4'b1100;
+			4'b0110: out = 4'b1101;
+			4'b1000: out = 4'b1110;
+			4'b0011: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_6(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b0111: out = 4'b0001;
+			4'b1110: out = 4'b0010;
+			4'b1001: out = 4'b0011;
+			4'b1111: out = 4'b0100;
+			4'b1000: out = 4'b0101;
+			4'b0001: out = 4'b0110;
+			4'b0110: out = 4'b0111;
+			4'b1101: out = 4'b1000;
+			4'b1010: out = 4'b1001;
+			4'b0011: out = 4'b1010;
+			4'b0100: out = 4'b1011;
+			4'b0010: out = 4'b1100;
+			4'b0101: out = 4'b1101;
+			4'b1100: out = 4'b1110;
+			4'b1011: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_7(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b0110: out = 4'b0001;
+			4'b1100: out = 4'b0010;
+			4'b1010: out = 4'b0011;
+			4'b1011: out = 4'b0100;
+			4'b1101: out = 4'b0101;
+			4'b0111: out = 4'b0110;
+			4'b0001: out = 4'b0111;
+			4'b0101: out = 4'b1000;
+			4'b0011: out = 4'b1001;
+			4'b1001: out = 4'b1010;
+			4'b1111: out = 4'b1011;
+			4'b1110: out = 4'b1100;
+			4'b1000: out = 4'b1101;
+			4'b0010: out = 4'b1110;
+			4'b0100: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_8(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b1111: out = 4'b0001;
+			4'b1101: out = 4'b0010;
+			4'b0010: out = 4'b0011;
+			4'b1001: out = 4'b0100;
+			4'b0110: out = 4'b0101;
+			4'b0100: out = 4'b0110;
+			4'b1011: out = 4'b0111;
+			4'b0001: out = 4'b1000;
+			4'b1110: out = 4'b1001;
+			4'b1100: out = 4'b1010;
+			4'b0011: out = 4'b1011;
+			4'b1000: out = 4'b1100;
+			4'b0111: out = 4'b1101;
+			4'b0101: out = 4'b1110;
+			4'b1010: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_9(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b0010: out = 4'b0001;
+			4'b0100: out = 4'b0010;
+			4'b0110: out = 4'b0011;
+			4'b1000: out = 4'b0100;
+			4'b1010: out = 4'b0101;
+			4'b1100: out = 4'b0110;
+			4'b1110: out = 4'b0111;
+			4'b0011: out = 4'b1000;
+			4'b0001: out = 4'b1001;
+			4'b0111: out = 4'b1010;
+			4'b0101: out = 4'b1011;
+			4'b1011: out = 4'b1100;
+			4'b1001: out = 4'b1101;
+			4'b1111: out = 4'b1110;
+			4'b1101: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_A(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b1100: out = 4'b0001;
+			4'b1011: out = 4'b0010;
+			4'b0111: out = 4'b0011;
+			4'b0101: out = 4'b0100;
+			4'b1001: out = 4'b0101;
+			4'b1110: out = 4'b0110;
+			4'b0010: out = 4'b0111;
+			4'b1010: out = 4'b1000;
+			4'b0110: out = 4'b1001;
+			4'b0001: out = 4'b1010;
+			4'b1101: out = 4'b1011;
+			4'b1111: out = 4'b1100;
+			4'b0011: out = 4'b1101;
+			4'b0100: out = 4'b1110;
+			4'b1000: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_B(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b0101: out = 4'b0001;
+			4'b1010: out = 4'b0010;
+			4'b1111: out = 4'b0011;
+			4'b0111: out = 4'b0100;
+			4'b0010: out = 4'b0101;
+			4'b1101: out = 4'b0110;
+			4'b1000: out = 4'b0111;
+			4'b1110: out = 4'b1000;
+			4'b1011: out = 4'b1001;
+			4'b0100: out = 4'b1010;
+			4'b0001: out = 4'b1011;
+			4'b1001: out = 4'b1100;
+			4'b1100: out = 4'b1101;
+			4'b0011: out = 4'b1110;
+			4'b0110: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_C(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b1010: out = 4'b0001;
+			4'b0111: out = 4'b0010;
+			4'b1101: out = 4'b0011;
+			4'b1110: out = 4'b0100;
+			4'b0100: out = 4'b0101;
+			4'b1001: out = 4'b0110;
+			4'b0011: out = 4'b0111;
+			4'b1111: out = 4'b1000;
+			4'b0101: out = 4'b1001;
+			4'b1000: out = 4'b1010;
+			4'b0010: out = 4'b1011;
+			4'b0001: out = 4'b1100;
+			4'b1011: out = 4'b1101;
+			4'b0110: out = 4'b1110;
+			4'b1100: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_D(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b0100: out = 4'b0001;
+			4'b1000: out = 4'b0010;
+			4'b1100: out = 4'b0011;
+			4'b0011: out = 4'b0100;
+			4'b0111: out = 4'b0101;
+			4'b1011: out = 4'b0110;
+			4'b1111: out = 4'b0111;
+			4'b0110: out = 4'b1000;
+			4'b0010: out = 4'b1001;
+			4'b1110: out = 4'b1010;
+			4'b1010: out = 4'b1011;
+			4'b0101: out = 4'b1100;
+			4'b0001: out = 4'b1101;
+			4'b1101: out = 4'b1110;
+			4'b1001: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_E(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b0011: out = 4'b0001;
+			4'b0110: out = 4'b0010;
+			4'b0101: out = 4'b0011;
+			4'b1100: out = 4'b0100;
+			4'b1111: out = 4'b0101;
+			4'b1010: out = 4'b0110;
+			4'b1001: out = 4'b0111;
+			4'b1011: out = 4'b1000;
+			4'b1000: out = 4'b1001;
+			4'b1101: out = 4'b1010;
+			4'b1110: out = 4'b1011;
+			4'b0111: out = 4'b1100;
+			4'b0100: out = 4'b1101;
+			4'b0001: out = 4'b1110;
+			4'b0010: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
+endmodule
+
+module GF_Multiply_F(
+	input [0:3] A,
+	output reg [0:3] out
+	);
+
+	always @(*) begin
+		case(A)
+			4'b1000: out = 4'b0001;
+			4'b0011: out = 4'b0010;
+			4'b1011: out = 4'b0011;
+			4'b0110: out = 4'b0100;
+			4'b1110: out = 4'b0101;
+			4'b0101: out = 4'b0110;
+			4'b1101: out = 4'b0111;
+			4'b1100: out = 4'b1000;
+			4'b0100: out = 4'b1001;
+			4'b1111: out = 4'b1010;
+			4'b0111: out = 4'b1011;
+			4'b1010: out = 4'b1100;
+			4'b0010: out = 4'b1101;
+			4'b1001: out = 4'b1110;
+			4'b0001: out = 4'b1111;
+			default: out = 4'b0000;
+		endcase
+	end
 endmodule

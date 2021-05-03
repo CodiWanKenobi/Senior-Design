@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 03/24/2021 11:10:19 AM
+// Create Date: 05/01/2021 07:50:12 PM
 // Design Name: 
-// Module Name: GF_Poly_Evaluate
+// Module Name: RS_Top
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -19,16 +19,19 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-//Evalute a polynomial with 2 coefficients
-//And last coefficient is a 1
-module GF_Poly_Evaluate2(
-    input [0:7] coef,
-    input [0:7] values,
-    output [0:3] out
+
+module RS_Top(
+    input [0:43] in,
+    input [0:59] mask,
+    output [0:43] decoded,
+    output valid
     );
     
-    wire [0:3]m0;
-    GF_Multiply mult0(coef[0:3],values[0:3],m0);
-    assign out = m0 ^ coef[4:7];    
-
+    wire [0:59] masked;
+    wire [0:59] encoded;
+    
+    RS_Encoder(in, encoded);
+    assign masked = encoded ^ mask;
+    RS_Decoder(masked, decoded, valid);
+    
 endmodule
